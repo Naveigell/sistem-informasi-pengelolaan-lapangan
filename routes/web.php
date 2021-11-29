@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('karyawan')->name('karyawan.')->group(function () {
+    Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
+    Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
+    Route::resource('members', \App\Http\Controllers\Karyawan\MemberController::class);
 });
+
+Route::get('/logout', function () {
+    auth('karyawan')->logout();
+    auth('member')->logout();
+})->name('logout');
