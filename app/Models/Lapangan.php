@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Helpers\ImageHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -29,10 +28,14 @@ class Lapangan extends Model
      */
     public function setFotoAttribute($value)
     {
-        $name = Str::uuid() . '.' . $value->getClientOriginalExtension();
+        $name = $value;
 
-        Storage::putFileAs('/public/images/lapangan', $value, $name);
+        if (is_uploaded_file($value)) {
+            $name = Str::uuid() . '.' . $value->getClientOriginalExtension();
 
-        $this->attributes['foto'] = is_uploaded_file($value) ? $name : $value;
+            Storage::putFileAs('/public/images/lapangan', $value, $name);
+        }
+
+        $this->attributes['foto'] = $name;
     }
 }

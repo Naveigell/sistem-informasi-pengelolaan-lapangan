@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Karyawan\KasRequest;
+use App\Models\Kas;
 use Illuminate\Http\Request;
 
 class KasController extends Controller
@@ -10,32 +12,40 @@ class KasController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $kas = Kas::with('karyawan')->get();
+
+        return view('karyawan.pages.kas.index', compact('kas'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('karyawan.pages.kas.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param KasRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(KasRequest $request)
     {
-        //
+        $input = $request->validated();
+        $input['karyawan_id'] = 1;
+
+        $kas = new Kas($input);
+        $kas->save();
+
+        return redirect(route('karyawan.kas.index'))->with('success', 'Kas berhasil dibuat');
     }
 
     /**
@@ -52,24 +62,29 @@ class KasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Kas $ka
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kas $ka)
     {
-        //
+        return view('karyawan.pages.kas.edit', [
+            "kas" => $ka
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param KasRequest $request
+     * @param Kas $ka
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(KasRequest $request, Kas $ka)
     {
-        //
+        $ka->fill($request->validated());
+        $ka->save();
+
+        return redirect(route('karyawan.kas.index'))->with('success', 'Kas berhasil diubah');
     }
 
     /**
