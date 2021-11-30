@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Karyawan\MemberRequest;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -10,11 +12,13 @@ class MemberController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $members = Member::all();
+
+        return view('karyawan.pages.members.index', compact('members'));
     }
 
     /**
@@ -30,7 +34,7 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,23 +57,25 @@ class MemberController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Member $member)
     {
-        //
+        return view('karyawan.pages.members.edit', compact('member'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param MemberRequest $request
+     * @param Member $member
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(MemberRequest $request, Member $member)
     {
-        //
+        $member->update($request->validated());
+
+        return redirect(route('karyawan.members.index'))->with('success', 'Data member berhasil diubah');
     }
 
     /**
