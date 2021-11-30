@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         Lapangan::factory(5)->create();
         Karyawan::factory(10)->create();
         Kas::factory(20)->create();
-        Pemesanan::factory(20)->create();
         Pembayaran::factory(20)->create();
+        Pemesanan::factory(20)->create();
         Penyewaan::factory(20)->create();
     }
 }

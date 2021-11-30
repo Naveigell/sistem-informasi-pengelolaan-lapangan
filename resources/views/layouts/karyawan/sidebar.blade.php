@@ -20,6 +20,18 @@
                     <span>Kas</span>
                 </a>
             </li>
+            <li class="">
+                <a href="{{ route('karyawan.pemesanans.index') }}" class="{{ request()->is('*pemesanan*') ? 'active' : '' }}">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Pemesanan</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ route('karyawan.pembayarans.index') }}" class="{{ request()->is('*pembayaran*') ? 'active' : '' }}">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Pembayaran</span>
+                </a>
+            </li>
 {{--            <p class="centered">--}}
 {{--                <a href="{{ route('admin.dashboard.index') }}">--}}
 {{--                    <i class="fa fa-user" style="color: white; font-size: 60px;"></i>--}}

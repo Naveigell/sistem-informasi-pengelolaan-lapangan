@@ -17,6 +17,8 @@ Route::prefix('karyawan')->name('karyawan.')->group(function () {
     Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
     Route::resource('members', \App\Http\Controllers\Karyawan\MemberController::class);
+    Route::resource('pemesanans', \App\Http\Controllers\Karyawan\PemesananController::class);
+    Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);
 });
 
 Route::get('/logout', function () {
