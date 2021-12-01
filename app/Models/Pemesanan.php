@@ -9,6 +9,10 @@ class Pemesanan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "karyawan_id", "lapangan_id", "member_id", "tanggal_sewa", "jenis_sewa", "total_harga", "status",
+    ];
+
     public function member()
     {
         return $this->belongsTo(Member::class);

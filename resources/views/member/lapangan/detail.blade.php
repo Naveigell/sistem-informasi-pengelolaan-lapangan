@@ -28,7 +28,7 @@
             return $filtered->count() > 0;
         }
 
-        $isEvent = $pemesanan->jenis_sewa === 'event';
+        $isEvent = $pemesanan && $pemesanan->jenis_sewa === 'event';
     ?>
     <!-- Masthead-->
     <header class="masthead" style="background-image: url({{ $lapangan->foto_url }})">
@@ -41,7 +41,7 @@
     </header>
     <!-- Services-->
     <section class="page-section" id="services">
-        <form action="{{ route('member.pemesanans.store') }}" method="post">
+        <form action="{{ route('member.pemesanans.confirm', $lapangan) }}" method="post">
             @csrf
             <div class="container">
                 <div class="text-center">
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="card-body">
                                             @if(!hasBooked($i, $pemesanan))
-                                                <input class="checkboxes" name="waktu" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
+                                                <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
                                                 <label for="time-{{ $i }}">Pilih</label>
                                             @else
                                                 <label>Penuh!</label>

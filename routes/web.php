@@ -30,6 +30,7 @@ Route::prefix('member/auth')->name('member.auth.')->group(function () {
 
 Route::prefix('member')->name('member.')->group(function () {
     Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
+    Route::post('/pemesanans/{lapangan}/confirm', [\App\Http\Controllers\Member\PemesananController::class, 'confirmation'])->name('pemesanans.confirm');
     Route::resource('pemesanans', \App\Http\Controllers\Member\PemesananController::class);
 });
 

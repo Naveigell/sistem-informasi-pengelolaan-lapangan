@@ -9,6 +9,10 @@ class SesiPemesanan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "pemesanan_id", "sesi_id"
+    ];
+
     public function sesi()
     {
         return $this->belongsTo(Sesi::class);

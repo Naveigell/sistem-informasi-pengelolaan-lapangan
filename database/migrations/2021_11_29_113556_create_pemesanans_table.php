@@ -16,15 +16,11 @@ class CreatePemesanansTable extends Migration
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('karyawan_id')->constrained('karyawans')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('lapangan_id')->constrained('lapangans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('member_id')->constrained('members')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('tanggal_sewa');
             $table->enum('jenis_sewa', ['event', 'reguler']);
-            $table->time('jam_mulai');
-            $table->time('jam_selesai');
             $table->unsignedInteger('total_harga');
-            $table->unsignedInteger('total_sesi')->nullable();
-            $table->enum('status', ['open', 'cancel', 'paid']);
+            $table->enum('status', ['open', 'cancel', 'paid'])->default('open');
             $table->timestamps();
         });
     }

@@ -35,8 +35,6 @@ class PemesananFactory extends Factory
             "member_id"          => $member->id,
             "tanggal_sewa"       => now()->subDays(rand(-10, 10))->toDateString(),
             "jenis_sewa"         => Arr::random(['reguler', 'event']),
-            "jam_mulai"          => $startTime->toTimeString(),
-            "jam_selesai"        => $startTime->addHours(2)->toTimeString(),
             "total_harga"        => $nominal,
             "status"             => Arr::random(['open', 'cancel', 'paid']),
         ];

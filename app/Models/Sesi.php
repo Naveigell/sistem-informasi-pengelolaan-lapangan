@@ -9,6 +9,10 @@ class Sesi extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "nama_sesi", "jam_mulai", "jam_selesai", "lapangan_id",
+    ];
+
     public function sesiPemesanan()
     {
         return $this->hasMany(SesiPemesanan::class);
