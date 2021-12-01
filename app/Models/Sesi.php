@@ -5,19 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pemesanan extends Model
+class Sesi extends Model
 {
     use HasFactory;
-
-    public function member()
-    {
-        return $this->belongsTo(Member::class);
-    }
-
-    public function lapangan()
-    {
-        return $this->belongsTo(Lapangan::class);
-    }
 
     public function sesiPemesanan()
     {

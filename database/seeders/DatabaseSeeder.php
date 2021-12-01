@@ -9,6 +9,8 @@ use App\Models\Member;
 use App\Models\Pembayaran;
 use App\Models\Pemesanan;
 use App\Models\Penyewaan;
+use App\Models\Sesi;
+use App\Models\SesiPemesanan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,8 +27,10 @@ class DatabaseSeeder extends Seeder
         Lapangan::factory(5)->create();
         Karyawan::factory(10)->create();
         Kas::factory(20)->create();
-        Pembayaran::factory(20)->create();
         Pemesanan::factory(20)->create();
+        Pembayaran::factory(20)->create();
         Penyewaan::factory(20)->create();
+        Sesi::factory(Lapangan::query()->count() * ((20 - 8) / 2))->create();
+        SesiPemesanan::factory(30)->create();
     }
 }

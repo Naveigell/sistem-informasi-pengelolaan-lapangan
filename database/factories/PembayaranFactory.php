@@ -19,9 +19,11 @@ class PembayaranFactory extends Factory
     public function definition()
     {
         $karyawan  = Karyawan::query()->where('jabatan', 'staff')->get()->random();
+        $pemesanan = Pemesanan::all()->random();
 
         return [
             "karyawan_id"        => $karyawan->id,
+            "pemesanan_id"       => $pemesanan->id,
             "tanggal_pembayaran" => now()->subDays(rand(-10, 10))->toDateString(),
             "total_pembayaran"   => (10 ** mt_rand(3, 6)) * mt_rand(1, 5),
         ];

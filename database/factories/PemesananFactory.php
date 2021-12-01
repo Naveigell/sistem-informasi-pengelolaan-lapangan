@@ -24,9 +24,8 @@ class PemesananFactory extends Factory
         $member   = Member::all()->random();
         $karyawan = Karyawan::all()->random();
         $lapangan = Lapangan::all()->random();
-        $pembayaran = Pembayaran::all()->random();
 
-        $startTime = now()->subHours(rand(-10, 10));
+        $startTime = now()->subHours(Arr::random([8, 10, 12, 14, 16, 18]));
 
         $nominal = (10 ** mt_rand(3, 6)) * mt_rand(1, 5);
 
@@ -34,7 +33,6 @@ class PemesananFactory extends Factory
             "karyawan_id"        => $karyawan->id,
             "lapangan_id"        => $lapangan->id,
             "member_id"          => $member->id,
-            "pembayaran_id"      => $pembayaran->id,
             "tanggal_sewa"       => now()->subDays(rand(-10, 10))->toDateString(),
             "jenis_sewa"         => Arr::random(['reguler', 'event']),
             "jam_mulai"          => $startTime->toTimeString(),

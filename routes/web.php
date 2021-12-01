@@ -21,6 +21,18 @@ Route::prefix('karyawan')->name('karyawan.')->group(function () {
     Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);
 });
 
+Route::resource('/', \App\Http\Controllers\HomeController::class);
+
+Route::prefix('member/auth')->name('member.auth.')->group(function () {
+    Route::view('/login', 'auth.member.login')->name('login.index');
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthMemberController::class, 'login'])->name('login.store');
+});
+
+Route::prefix('member')->name('member.')->group(function () {
+    Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
+    Route::resource('pemesanans', \App\Http\Controllers\Member\PemesananController::class);
+});
+
 Route::get('/logout', function () {
     auth('karyawan')->logout();
     auth('member')->logout();

@@ -18,7 +18,6 @@ class CreatePemesanansTable extends Migration
             $table->foreignId('karyawan_id')->constrained('karyawans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('lapangan_id')->constrained('lapangans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('member_id')->constrained('members')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('pembayaran_id')->constrained('pembayarans')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('tanggal_sewa');
             $table->enum('jenis_sewa', ['event', 'reguler']);
             $table->time('jam_mulai');
