@@ -50,15 +50,17 @@ class LapanganController extends Controller
      */
     public function show(Request $request, Lapangan $lapangan)
     {
-        $pemesanan = null;
+        $pemesanans = null;
 
         if ($request->has('date')) {
-            $pemesanan = Pemesanan::with(['sesiPemesanan.sesi' => function($query) use ($lapangan) {
+            $pemesanans = Pemesanan::with(['sesiPemesanan.sesi' => function($query) use ($lapangan) {
                 $query->where('lapangan_id', $lapangan->id);
-            }])->whereDate('tanggal_sewa', $request->query('date'))->first();
+            }])->whereDate('tanggal_sewa', $request->query('date'))->get();
+
+//            dd($pemesanan);
         }
 
-        return view('member.lapangan.detail', compact('lapangan', 'pemesanan'));
+        return view('member.lapangan.detail', compact('lapangan', 'pemesanans'));
     }
 
     /**

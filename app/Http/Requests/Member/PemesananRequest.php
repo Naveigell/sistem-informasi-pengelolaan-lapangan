@@ -17,12 +17,15 @@ class PemesananRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            "tanggal"           => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
-            "id"                => "required|min:1",
-            "jenis_sewa"        => "required|in:event,reguler",
-            "waktu"             => "required|array",
-            "waktu.*"           => "integer|in:8,10,12,14,16,18"
+            "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
+            "id"         => "required|min:1",
+            "jenis_sewa" => "required|in:event,reguler",
         ];
+
+        if ($this->get('jenis_sewa') == 'reguler') {
+            $rules['waktu']   = "required|array";
+            $rules['waktu.*'] = "integer|in:8,10,12,14,16,18";
+        }
 
         $this->createTimeRules($rules);
 

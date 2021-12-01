@@ -5,30 +5,34 @@
         /**
          * @var \App\Models\Lapangan $lapangan
          * @var \Illuminate\Support\MessageBag $errors
-         * @var \Illuminate\Support\Collection<\App\Models\Lapangan> $pemesanan
+         * @var \Illuminate\Support\Collection<\App\Models\Lapangan> $pemesanans
          */
         /**
          * @param int $hour
-         * @param \App\Models\Pemesanan|null $pemesanan
+         * @param \Illuminate\Support\Collection|null $pemesanans
          * @return bool
          */
-        function hasBooked(int $hour, \App\Models\Pemesanan $pemesanan = null): bool {
-            if (!$pemesanan) {
+        function hasBooked(int $hour, \Illuminate\Support\Collection $pemesanans = null): bool {
+            if (!$pemesanans) {
                 return false;
             }
 
-            $filtered = $pemesanan->sesiPemesanan->filter(function ($item) use ($hour) {
-                if (!$item->sesi) {
-                    return false;
-                }
+            $filtered = $pemesanans->filter(function ($item) use ($hour) {
+                return $item->sesiPemesanan->filter(function ($item) use ($hour) {
+                    if (!$item->sesi) {
+                        return false;
+                    }
 
-                return $hour >= \Carbon\Carbon::parse($item->sesi->jam_mulai)->hour && $hour < \Carbon\Carbon::parse($item->sesi->jam_selesai)->hour;
+                    return $hour >= \Carbon\Carbon::parse($item->sesi->jam_mulai)->hour && $hour < \Carbon\Carbon::parse($item->sesi->jam_selesai)->hour;
+                })->count() > 0;
             });
 
             return $filtered->count() > 0;
         }
 
-        $isEvent = $pemesanan && $pemesanan->jenis_sewa === 'event';
+        $isEvent = isset($pemesanans) && $pemesanans->filter(function ($item) {
+            return $item->jenis_sewa === 'event';
+        })->count() > 0;
     ?>
     <!-- Masthead-->
     <header class="masthead" style="background-image: url({{ $lapangan->foto_url }})">
@@ -74,7 +78,7 @@
                                             {{ $i }}.00 - {{ $i + 2 }}.00
                                         </div>
                                         <div class="card-body">
-                                            @if(!hasBooked($i, $pemesanan))
+                                            @if(!hasBooked($i, $pemesanans))
                                                 <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
                                                 <label for="time-{{ $i }}">Pilih</label>
                                             @else
