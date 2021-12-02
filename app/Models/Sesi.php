@@ -17,4 +17,9 @@ class Sesi extends Model
     {
         return $this->hasMany(SesiPemesanan::class);
     }
+
+    public function lapangan()
+    {
+        return $this->belongsTo(Lapangan::class);
+    }
 }

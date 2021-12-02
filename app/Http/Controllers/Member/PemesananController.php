@@ -16,11 +16,13 @@ class PemesananController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $pemesanans = Pemesanan::with('member')->get();
+
+        return view('member.pemesanan.index', compact('pemesanans'));
     }
 
     /**
@@ -37,31 +39,52 @@ class PemesananController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PemesananRequest $request
-     * @return \Illuminate\Http\Response
+     * @return string|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function store(PemesananRequest $request)
     {
+        $duration = 0;
+
         \DB::beginTransaction();
         try {
-            dump($request->validated());
-
             $times      = [];
+            $lapangan   = Lapangan::query()->findOrFail($request->get('id'));
             $pemesanan  = new Pemesanan([
                 "member_id"    => auth('member')->id(),
                 "karyawan_id"  => 1,
                 "tanggal_sewa" => $request->get('tanggal'),
                 "jenis_sewa"   => $request->get('jenis_sewa'),
-                "total_harga"  => 0,
+                "total_harga"  => $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * $lapangan->harga_reguler : $lapangan->harga_turnamen,
                 "status"       => "open",
             ]);
             $pemesanan->save();
 
-            foreach ($request->validated()['waktu'] as $time) {
+            // if jenis sewa is reguler
+            if (array_key_exists('waktu', $request->validated())) {
+                foreach ($request->validated()['waktu'] as $time) {
+                    $sesi = new Sesi([
+                        "lapangan_id" => $request->get('id'),
+                        "nama_sesi"   => \Str::random(15),
+                        "jam_mulai"   => Carbon::createFromTime($time),
+                        "jam_selesai" => Carbon::createFromTime($time + 2),
+                    ]);
+                    $sesi->save();
+
+                    $times[] = [
+                        "pemesanan_id" => $pemesanan->id,
+                        "sesi_id"      => $sesi->id,
+                        "created_at"   => now()->toDateTimeString(),
+                        "updated_at"   => now()->toDateTimeString(),
+                    ];
+
+                    $duration += 2;
+                }
+            } else { // if jenis sewa is event
                 $sesi = new Sesi([
                     "lapangan_id" => $request->get('id'),
                     "nama_sesi"   => \Str::random(15),
-                    "jam_mulai"   => Carbon::createFromTime($time),
-                    "jam_selesai" => Carbon::createFromTime($time + 2),
+                    "jam_mulai"   => Carbon::createFromTime(0),
+                    "jam_selesai" => Carbon::createFromTime(0),
                 ]);
                 $sesi->save();
 
@@ -78,7 +101,13 @@ class PemesananController extends Controller
             \DB::commit();
         } catch (\Exception $exception) {
             \DB::rollBack();
+
+            return $exception->getMessage();
         }
+
+        $total    = $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * $lapangan->harga_reguler : $lapangan->harga_turnamen;
+
+        return view('member.lapangan.confirm-booking-success', compact('lapangan', 'total', 'duration'));
     }
 
     public function confirmation(PemesananRequest $request, Lapangan $lapangan)
@@ -89,12 +118,12 @@ class PemesananController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Pemesanan $pemesanan
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pemesanan $pemesanan)
     {
-        //
+        return view('member.pemesanan.detail', compact('pemesanan'));
     }
 
     /**

@@ -24,7 +24,7 @@ class CreatePembayaransTable extends Migration
             $table->string('bank_pengirim', 20)->nullable();
             $table->string('nomor_rekening_pengirim', 20)->nullable();
             $table->string('atas_nama_pengirim', 20)->nullable();
-            $table->enum('status', ['valid', 'invalid']);
+            $table->enum('status', ['valid', 'invalid'])->nullable();
             $table->timestamps();
         });
     }

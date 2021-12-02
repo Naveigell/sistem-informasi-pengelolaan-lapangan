@@ -38,7 +38,7 @@
                                         <td>{{ request()->get('tanggal') }}</td>
                                         <td>-</td>
                                         <td>{{ request()->get('jenis_sewa') }}</td>
-                                        <td>Rp. {{ number_format($lapangan->harga_event, 0, ',', '.') }}</td>
+                                        <td>Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
                                     </tr>
                                 @endif
                                 <tr>

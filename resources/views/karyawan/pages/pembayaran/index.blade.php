@@ -22,7 +22,7 @@
                             <th class="hidden-phone">Bank tujuan</th>
                             <th class="hidden-phone">Bank pengirim</th>
                             <th class="hidden-phone">Nomor rekening pengirim</th>
-                            <th class="hidden-phone">Atas nama pengirim</th>
+                            <th class="hidden-phone">Nama Member</th>
                             <th class="hidden-phone">Status</th>
                             <th class="hidden-phone">Aksi</th>
                         </tr>
@@ -32,16 +32,22 @@
                             <tr class="gradeX">
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ \Carbon\Carbon::parse($pembayaran->tanggal_pembayaran)->format('d F Y') }}</td>
-                                <td>{{ $pembayaran->total_pembayaran }}</td>
-                                <td>{{ $pembayaran->bukti_transaksi ?? '-' }}</td>
+                                <td>Rp. {{ number_format($pembayaran->pemesanan->total_harga, 0, ',', '.') }}</td>
+                                @if($pembayaran->bukti_transaksi_url)
+                                    <td>
+                                        <img src="{{ $pembayaran->bukti_transaksi_url }}" alt="" style="height: 100px; width: 100px;">
+                                    </td>
+                                @else
+                                    <td>-</td>
+                                @endif
                                 <td>{{ $pembayaran->bank_tujuan ?? '-' }}</td>
                                 <td>{{ $pembayaran->bank_pengirim ?? '-' }}</td>
                                 <td>{{ $pembayaran->nomor_rekening_pengirim ?? '-' }}</td>
-                                <td>{{ $pembayaran->atas_nama_pengirim ?? '-' }}</td>
-                                <td>{{ ucfirst($pembayaran->status) }}</td>
+                                <td>{{ $pembayaran->pemesanan->member->nama_member ?? '-' }}</td>
+                                <td>{{ !$pembayaran->status ? 'Belum terkonfirmasi' : ucfirst($pembayaran->status) }}</td>
                                 <td>
-                                    <a href="{{ route('karyawan.pemesanans.edit', $pembayaran) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{{ route('karyawan.pemesanans.edit', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
+                                    <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
                                 </td>
                             </tr>
                         @endforeach

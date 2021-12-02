@@ -18,10 +18,7 @@
                             <th class="hidden-phone">No</th>
                             <th class="hidden-phone">Tanggal Sewa</th>
                             <th class="hidden-phone">Nama Penyewa</th>
-                            <th class="hidden-phone">Lapangan</th>
                             <th class="hidden-phone">Jenis Sewa</th>
-                            <th class="hidden-phone">Jam Mulai</th>
-                            <th class="hidden-phone">Jam Selesai</th>
                             <th class="hidden-phone">Total Harga</th>
                             <th class="hidden-phone">Status</th>
                         </tr>
@@ -32,10 +29,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
                                 <td>{{ $pemesanan->member->nama_member }}</td>
-                                <td>{{ $pemesanan->lapangan->nama_lapangan }}</td>
-                                <td>{{ ucfirst($pemesanan->jenis_sewa) }}</td>
-                                <td>{{ \Carbon\Carbon::parse($pemesanan->jam_mulai)->format('H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($pemesanan->jam_selesai)->format('H:i') }}</td>
+                                <td>{{ $pemesanan->jenis_sewa }}</td>
                                 <td>Rp {{ number_format($pemesanan->total_harga, 0, '', '.') }}</td>
                                 <td>{{ ucfirst($pemesanan->status) }}</td>
                             </tr>

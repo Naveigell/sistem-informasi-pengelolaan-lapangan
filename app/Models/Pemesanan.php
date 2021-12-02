@@ -18,11 +18,6 @@ class Pemesanan extends Model
         return $this->belongsTo(Member::class);
     }
 
-    public function lapangan()
-    {
-        return $this->belongsTo(Lapangan::class);
-    }
-
     public function sesiPemesanan()
     {
         return $this->hasMany(SesiPemesanan::class);

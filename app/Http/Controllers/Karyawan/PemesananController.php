@@ -15,7 +15,9 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('lapangan', 'member')->get();
+        $pemesanans = Pemesanan::with('sesiPemesanan', 'sesiPemesanan.sesi', 'sesiPemesanan.sesi.lapangan', 'member')->get();
+
+//        dd($pemesanans);
 
         return view('karyawan.pages.pemesanan.index', compact('pemesanans'));
     }

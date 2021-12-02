@@ -10,13 +10,13 @@
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Informasi</a></li>
                 @unless(!auth('member')->check())
-                    <li class="nav-item"><a class="nav-link" href="">Pemesanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('member.pemesanans.index') }}">Pemesanan</a></li>
                 @endunless
                 @if(!auth('member')->check() && !auth('karyawan')->check())
-                    <li class="nav-item"><a class="nav-link">Login Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('karyawan.auth.login.index') }}">Login Admin</a></li>
                     <li class="nav-item"><a class="nav-link">Register Member</a></li>
                 @elseif(auth('member')->check())
-                    <li class="nav-item"><a class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 @endif
             </ul>
         </div>

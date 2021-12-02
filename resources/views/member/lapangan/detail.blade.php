@@ -59,6 +59,7 @@
                             <div class="col-4"></div>
                         </div>
                     </div>
+                    <span class="text text-dark small d-inline-block mt-3" style="font-size: 12px;"><i class="fa fa-question-circle"></i> &nbsp;Silakan melakukan pemilihan tanggal sebelum melanjutkan pemesanan</span>
                 </div>
 
                 @if($errors->any())
@@ -66,6 +67,25 @@
                         <script>alert('{{ $message }}');</script>
                     @endforeach
                 @endif
+                @unless($isEvent)
+                    <div class="row mt-5">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-12 text-left">
+                            <h4 class="my-12">Jenis</h4>
+                            <div class="mt-4">
+                                <div class="form-group d-inline-block">
+                                    <input name="jenis_sewa" value="event" type="radio" id="event">
+                                    <label for="event">Event</label>
+                                </div>
+                                <div class="form-group d-inline-block">
+                                    <input name="jenis_sewa" value="reguler" type="radio" id="reguler">
+                                    <label for="reguler">Reguler</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                @endunless
                 <div class="row mt-5" id="time">
                     <div class="col-md-1"></div>
                     <div class="col-md-12 text-left">
@@ -97,23 +117,6 @@
                     <div class="col-md-1"></div>
                 </div>
                 @unless($isEvent)
-                    <div class="row mt-5">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-12 text-left">
-                            <h4 class="my-12">Jenis</h4>
-                            <div class="mt-4">
-                                <div class="form-group d-inline-block">
-                                    <input name="jenis_sewa" value="event" type="radio" id="event">
-                                    <label for="event">Event</label>
-                                </div>
-                                <div class="form-group d-inline-block">
-                                    <input name="jenis_sewa" value="reguler" type="radio" id="reguler">
-                                    <label for="reguler">Reguler</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
                     <div class="row mt-5">
                         <div class="col-md-1"></div>
                         <div class="col-md-12 text-left">
@@ -154,6 +157,7 @@
     <script>
         const checkboxes = $(".checkboxes");
         const time = $("#time");
+        time.hide();
         const date = $("#tanggal");
         let bookingType;
 

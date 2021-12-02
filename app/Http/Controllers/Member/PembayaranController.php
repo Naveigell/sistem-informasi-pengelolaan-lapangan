@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Karyawan\PembayaranRequest;
+use App\Http\Requests\Member\PembayaranRequest;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
@@ -16,9 +16,7 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $pembayarans = Pembayaran::with('pemesanan.member')->get();
-
-        return view('karyawan.pages.pembayaran.index', compact('pembayarans'));
+        return view('member.pembayaran.index');
     }
 
     /**
@@ -34,12 +32,21 @@ class PembayaranController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @param PembayaranRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PembayaranRequest $request)
     {
-        //
+        $additional = [
+            "karyawan_id"        => 1,
+            "tanggal_pembayaran" => now()->toDateString(),
+            "total_pembayaran"   => 0,
+        ];
+
+        $pembayaran = new Pembayaran(array_merge($additional, $request->validated()));
+        $pembayaran->save();
+
+        return redirect(route('member.pemesanans.index'));
     }
 
     /**
@@ -56,30 +63,24 @@ class PembayaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Pembayaran $pembayaran
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Pembayaran $pembayaran)
+    public function edit($id)
     {
-        $pembayaran->load('pemesanan.member');
-
-        return view('karyawan.pages.pembayaran.detail', compact('pembayaran'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param PembayaranRequest $request
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(PembayaranRequest $request, Pembayaran $pembayaran)
+    public function update(Request $request, $id)
     {
-        $pembayaran->update([
-            "status" => $request->get('status'),
-        ]);
-
-        return redirect(route('karyawan.pembayarans.index'));
+        //
     }
 
     /**
