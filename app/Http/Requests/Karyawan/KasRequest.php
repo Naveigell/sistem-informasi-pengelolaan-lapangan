@@ -13,11 +13,16 @@ class KasRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             "tanggal_transaksi" => "required|date",
             "jenis"             => "required|in:kredit,debit",
-            "nilai"             => "required|integer|min:1",
             "keterangan"        => "required|string|min:5|max:300",
         ];
+
+        if ($this->jenis === 'kredit') {
+            $rules['nilai'] = "required|integer|min:1";
+        }
+
+        return $rules;
     }
 }

@@ -15,4 +15,15 @@ class Kas extends Model
     {
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function setNilaiAttribute($value)
+    {
+        if ($this->attributes['jenis'] === 'kredit') {
+            $this->attributes['nilai'] = $value;
+        } else {
+            $total = Pemesanan::query()->whereDate('tanggal_sewa', $this->attributes['tanggal_transaksi'])->whereStatus('paid')->sum('total_harga');
+
+            $this->attributes['nilai'] = $total;
+        }
+    }
 }

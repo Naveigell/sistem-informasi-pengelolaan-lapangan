@@ -29,15 +29,15 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Jenis kas</label>
                         <div class="col-sm-10">
-                            <select name="jenis" id="" class="form-control">
+                            <select name="jenis" id="jenis" class="form-control">
                                 <option value="">-- Pilih --</option>
-                                <option value="debit">Debit</option>
-                                <option value="kredit">Kredit</option>
+                                <option {{ old('jenis') === 'debit' ? 'selected' : '' }} value="debit">Debit</option>
+                                <option {{ old('jenis') === 'kredit' ? 'selected' : '' }} value="kredit">Kredit</option>
                             </select>
                             <span class="help-block">Masukkan jenis kas. Cth: Debit</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="nilai">
                         <label class="col-sm-2 col-sm-2 control-label">Nilai</label>
                         <div class="col-sm-10">
                             <input name="nilai" type="text" value="{{ old('nilai') }}" class="form-control">
@@ -62,4 +62,16 @@
         </div>
         <!-- col-lg-12-->
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('#jenis').on('change', function (e) {
+            if (e.target.value === 'debit') {
+                $('#nilai').hide();
+            } else {
+                $('#nilai').show();
+            }
+        })
+    </script>
 @endsection

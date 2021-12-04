@@ -44,7 +44,7 @@
                                 <tr>
                                     <td colspan="3">Total</td>
                                     @if(request('jenis_sewa') == 'reguler')
-                                        <td>Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])), 0, ',', '.') }}</td>
+                                        <td>Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])) * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                     @else
                                         <td>Rp. {{ number_format($lapangan->harga_event, 0, ',', '.') }}</td>
                                     @endif
@@ -52,7 +52,10 @@
                                 </tbody>
                             </table>
                             <h5 class="card-title">Konfirmasi booking</h5>
-                            <span class="text text-info" style="font-size: 14px;">Klik tombol <b>pesan</b> untuk mengkonfirmasi pemesanan</span>
+                            <span class="text text-info" style="font-size: 14px;">Centang tombol persetujuan kemudian klik tombol <b>pesan</b> untuk mengkonfirmasi pemesanan</span>
+                            <br>
+                            <br>
+                            <input type="checkbox" id="checkbox" name="accept"> <label style="font-size: 14px;" for="checkbox" class="text text-success">Saya menyetujui kebijakan yang berlaku</label>
                             <br>
                             <br>
                             <button class="btn btn-success btn-sm">Pesan</button>

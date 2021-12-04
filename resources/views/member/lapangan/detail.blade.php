@@ -149,6 +149,7 @@
                 @endunless
             </div>
             <input type="text" name="id" value="{{ $lapangan->id }}" hidden>
+            <input type="checkbox" checked hidden name="accept">
         </form>
     </section>
 @endsection

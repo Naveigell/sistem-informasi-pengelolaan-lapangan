@@ -37,6 +37,7 @@ Route::prefix('karyawan/auth')->name('karyawan.auth.')->group(function () {
 Route::prefix('member')->name('member.')->group(function () {
     Route::post('/pemesanans/{lapangan}/confirm', [\App\Http\Controllers\Member\PemesananController::class, 'confirmation'])->name('pemesanans.confirm');
     Route::resource('pemesanans', \App\Http\Controllers\Member\PemesananController::class);
+    Route::delete('/pemesanans/{pemesanan}/cancel', [\App\Http\Controllers\Member\PemesananController::class, 'cancel']);
     Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Member\PembayaranController::class);
 });

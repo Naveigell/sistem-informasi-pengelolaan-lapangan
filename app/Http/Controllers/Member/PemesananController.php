@@ -43,7 +43,8 @@ class PemesananController extends Controller
      */
     public function store(PemesananRequest $request)
     {
-        $duration = 0;
+        $duration  = 0;
+        $timeLimit = 0;
 
         \DB::beginTransaction();
         try {
@@ -54,7 +55,8 @@ class PemesananController extends Controller
                 "karyawan_id"  => 1,
                 "tanggal_sewa" => $request->get('tanggal'),
                 "jenis_sewa"   => $request->get('jenis_sewa'),
-                "total_harga"  => $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * $lapangan->harga_reguler : $lapangan->harga_turnamen,
+                "total_harga"  => $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * config('static.minimum_rent', 2) * $lapangan->harga_reguler : $lapangan->harga_turnamen,
+                "batas_waktu"  => now()->addDay()->toDateTimeString(),
                 "status"       => "open",
             ]);
             $pemesanan->save();
@@ -78,7 +80,18 @@ class PemesananController extends Controller
                     ];
 
                     $duration += 2;
+
+                    // if time plus 2 is greater than time limit,
+                    // set time limit into time plus 2,
+                    // (find the greates number) for set time limit
+                    // in database
+                    if ($time + 2 > $timeLimit) {
+                        $timeLimit = $time + 2;
+                    }
                 }
+
+                $pemesanan->batas_waktu = Carbon::createFromTime($timeLimit)->addHours(2);
+                $pemesanan->save();
             } else { // if jenis sewa is event
                 $sesi = new Sesi([
                     "lapangan_id" => $request->get('id'),
@@ -105,7 +118,7 @@ class PemesananController extends Controller
             return $exception->getMessage();
         }
 
-        $total    = $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * $lapangan->harga_reguler : $lapangan->harga_turnamen;
+        $total = $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * config('static.minimum_rent', 2) * $lapangan->harga_reguler : $lapangan->harga_turnamen;
 
         return view('member.lapangan.confirm-booking-success', compact('lapangan', 'total', 'duration'));
     }
@@ -158,5 +171,17 @@ class PemesananController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function cancel(Pemesanan $pemesanan)
+    {
+        $this->authorize('canCancel', [$pemesanan]);
+
+        $pemesanan->cancel();
+
+        return response()->json([], 204);
     }
 }

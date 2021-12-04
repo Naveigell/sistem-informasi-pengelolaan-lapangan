@@ -47,7 +47,7 @@
                                 <td>{{ !$pembayaran->status ? 'Belum terkonfirmasi' : ucfirst($pembayaran->status) }}</td>
                                 <td>
                                     <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
+                                    <a href="{{ route('karyawan.pembayarans.show', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -20,6 +20,7 @@ class CreatePemesanansTable extends Migration
             $table->date('tanggal_sewa');
             $table->enum('jenis_sewa', ['event', 'reguler']);
             $table->unsignedInteger('total_harga');
+            $table->timestamp('batas_waktu');
             $table->enum('status', ['open', 'cancel', 'paid'])->default('open');
             $table->timestamps();
         });

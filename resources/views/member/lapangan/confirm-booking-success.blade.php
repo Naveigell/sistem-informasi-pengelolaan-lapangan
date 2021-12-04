@@ -43,7 +43,7 @@
                                     <label for="">Silakan melakukan pembayaran Rp. </label>
                                     <ul>
                                         <li>Bank Bri (098019204) an Gor Wangaya</li>
-                                        <li>Bank BCH (071863812213) an Gor Wangaya</li>
+                                        <li>Bank BCA (071863812213) an Gor Wangaya</li>
                                     </ul>
                                     <label for="">Kemudian menuju menu pesanan dan lakukan pembayaran dengan nomor transaksi <b></b></label>
                                 </div>

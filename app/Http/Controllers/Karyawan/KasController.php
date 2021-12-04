@@ -40,9 +40,12 @@ class KasController extends Controller
     public function store(KasRequest $request)
     {
         $input = $request->validated();
-        $input['karyawan_id'] = 1;
 
         $kas = new Kas($input);
+        $kas->fill([
+            "karyawan_id" => auth('karyawan')->id(),
+            "nilai"       => $request->get('nilai', 0),
+        ]);
         $kas->save();
 
         return redirect(route('karyawan.kas.index'))->with('success', 'Kas berhasil dibuat');

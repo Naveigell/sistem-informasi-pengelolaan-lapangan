@@ -16,13 +16,13 @@
             </li>
             <li class="">
                 <a href="{{ route('karyawan.kas.index') }}" class="{{ request()->is('*kas*') ? 'active' : '' }}">
-                    <i class="fa fa-credit-card"></i>
+                    <i class="fa fa-money"></i>
                     <span>Kas</span>
                 </a>
             </li>
             <li class="">
                 <a href="{{ route('karyawan.pemesanans.index') }}" class="{{ request()->is('*pemesanan*') ? 'active' : '' }}">
-                    <i class="fa fa-credit-card"></i>
+                    <i class="fa fa-motorcycle"></i>
                     <span>Pemesanan</span>
                 </a>
             </li>

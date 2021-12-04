@@ -9,3 +9,4 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.map_key') }}&callback=initMap&libraries=&v=weekly" async></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

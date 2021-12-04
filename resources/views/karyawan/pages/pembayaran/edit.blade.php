@@ -7,7 +7,18 @@
         <div class="col-lg-12">
             <div class="form-panel">
                 <h4 class="mb"><i class="fa fa-angle-right"></i> Detail Pembayaran</h4>
-                <form class="form-horizontal style-form" method="post">
+                @if($errors->any())
+                    <div class="alert-danger alert" style="margin-top: 20px;">
+                        <ul>
+                            @foreach($errors->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form class="form-horizontal style-form" method="post" action="{{ route('karyawan.pembayarans.update', $pembayaran) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('put')
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Member</label>
                         <div class="col-sm-10">
@@ -53,7 +64,17 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Konfirmasi status</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ ucfirst($pembayaran->status) }}" class="form-control">
+                            <select class="form-control" name="status" id="">
+                                <option value="">---- Pilih Status ----</option>
+                                <option value="valid">Valid</option>
+                                <option value="invalid">Invalid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-theme">Simpan</button>
                         </div>
                     </div>
                 </form>

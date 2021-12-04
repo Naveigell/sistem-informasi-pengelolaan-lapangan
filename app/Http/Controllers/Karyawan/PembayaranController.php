@@ -45,12 +45,14 @@ class PembayaranController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Pembayaran $pembayaran
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pembayaran $pembayaran)
     {
-        //
+        $pembayaran->load('pemesanan.member');
+
+        return view('karyawan.pages.pembayaran.detail', compact('pembayaran'));
     }
 
     /**
@@ -63,7 +65,7 @@ class PembayaranController extends Controller
     {
         $pembayaran->load('pemesanan.member');
 
-        return view('karyawan.pages.pembayaran.detail', compact('pembayaran'));
+        return view('karyawan.pages.pembayaran.edit', compact('pembayaran'));
     }
 
     /**

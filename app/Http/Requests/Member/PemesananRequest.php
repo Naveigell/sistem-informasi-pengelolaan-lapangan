@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Member;
 
 use App\Traits\Request\HasTimeRules;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class PemesananRequest extends FormRequest
 {
@@ -20,6 +22,7 @@ class PemesananRequest extends FormRequest
             "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
             "id"         => "required|min:1",
             "jenis_sewa" => "required|in:event,reguler",
+            "accept"     => "required",
         ];
 
         if ($this->get('jenis_sewa') == 'reguler') {
@@ -42,5 +45,22 @@ class PemesananRequest extends FormRequest
             "booked" => $times ?? $this->get('waktu'),
             "waktu"  => $times ?? $this->get('waktu'),
         ]);
+    }
+
+    public function messages()
+    {
+        return [
+            "accept.required" => "You must accept the agreement"
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw (new ValidationException($validator))
+            ->errorBag($this->errorBag)
+            ->redirectTo(route('member.lapangans.show', [
+                "lapangan" => $this->get('id'),
+                "date"     => $this->get('tanggal')
+            ]));
     }
 }

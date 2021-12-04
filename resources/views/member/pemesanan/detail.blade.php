@@ -51,8 +51,8 @@
                             <div class="col-10">
                                 <select class="form-control @if($errors->has('bank_tujuan')) is-invalid @endif" name="bank_tujuan" id="bank_tujuan">
                                     <option value="">-- Silakan pilih --</option>
-                                    <option @if(old('bank_tujuan') === 'bca') selected @endif value="bca">BCA</option>
-                                    <option @if(old('bank_tujuan') === 'bri') selected @endif value="bri">BRI</option>
+                                    <option @if(old('bank_tujuan') === 'bca') selected @endif value="bca">BCA. &nbsp; No Rek: 071863812213</option>
+                                    <option @if(old('bank_tujuan') === 'bri') selected @endif value="bri">BRI. &nbsp; No Rek: 098019204</option>
                                 </select>
                                 @if($errors->has('bank_tujuan'))
                                     <div class="text text-danger mt-1" style="font-size: 13px;">
@@ -78,7 +78,15 @@
                         </div>
                         <div class="form-group row mt-4">
                             <div class="col-2">
-                                <label for="tanggal">Tanggal</label>
+                                <label for="jumlah">Batas Waktu Pembayaran</label>
+                            </div>
+                            <div class="col-10">
+                                <input class="form-control col-10" value="{{ \Carbon\Carbon::parse($pemesanan->batas_waktu)->format('d F Y H:i') }}" disabled type="text" id="jumal-pembayaran">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-2">
+                                <label for="tanggal">Tanggal Sewa</label>
                             </div>
                             <div class="col-10">
                                 <input class="form-control col-10" value="{{ now()->format('d F Y') }}" disabled type="text" id="tanggal">
