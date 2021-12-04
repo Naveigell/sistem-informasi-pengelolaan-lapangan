@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pemesanan;
+use App\Models\Sesi;
 use Illuminate\Http\Request;
 
-class PemesananController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,9 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->get();
+        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->orderBy('tanggal_sewa')->get();
 
-        return view('karyawan.pages.pemesanan.index', compact('pemesanans'));
+        return view('karyawan.pages.jadwal.index', compact('pemesanans'));
     }
 
     /**

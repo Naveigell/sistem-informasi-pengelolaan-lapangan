@@ -184,7 +184,7 @@
 
         reguler.on('change', function (evt) {
             if (evt.target.checked) {
-                harga = '{{ $lapangan->harga_reguler }}';
+                harga = '{{ $lapangan->harga_reguler * config("static.minimum_rent", 2) }}';
                 time.show();
                 displayPrice();
             }
@@ -198,7 +198,7 @@
             $("#harga").val(harga);
 
             if (bookingType === 'reguler') {
-                $("#total").val(harga * 2 * bookingCount());
+                $("#total").val(harga * bookingCount());
             } else {
                 $("#total").val(harga);
             }

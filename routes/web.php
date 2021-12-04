@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('karyawan')->name('karyawan.')->group(function () {
     Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
+    Route::get('/kas/print', [\App\Http\Controllers\Karyawan\KasController::class, 'print'])->name('kas.print');
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
+    Route::resource('jadwals', \App\Http\Controllers\Karyawan\JadwalController::class);
     Route::resource('members', \App\Http\Controllers\Karyawan\MemberController::class);
     Route::resource('pemesanans', \App\Http\Controllers\Karyawan\PemesananController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);
@@ -40,6 +42,7 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::delete('/pemesanans/{pemesanan}/cancel', [\App\Http\Controllers\Member\PemesananController::class, 'cancel']);
     Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Member\PembayaranController::class);
+    Route::resource('akuns', \App\Http\Controllers\Member\AkunController::class);
 });
 
 Route::get('/logout', function () {

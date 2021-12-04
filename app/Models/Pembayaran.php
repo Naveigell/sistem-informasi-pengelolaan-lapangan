@@ -11,6 +11,9 @@ class Pembayaran extends Model
 {
     use HasFactory, ImageHandler;
 
+    const VALID = 'valid';
+    const INVALID = 'invalid';
+
     protected $fillable = [
         "karyawan_id", "pemesanan_id", "tanggal_pembayaran", "bukti_transaksi",
         "bank_tujuan", "bank_pengirim", "nomor_rekening_pengirim", "atas_nama_pengirim",
@@ -20,6 +23,15 @@ class Pembayaran extends Model
     protected $appends = [
         "bukti_transaksi_url"
     ];
+
+    public function setStatusAttribute($value)
+    {
+        if ($value === self::VALID) {
+            $this->pemesanan->paid();
+        }
+
+        $this->attributes['status'] = $value;
+    }
 
     /**
      * @param UploadedFile $file

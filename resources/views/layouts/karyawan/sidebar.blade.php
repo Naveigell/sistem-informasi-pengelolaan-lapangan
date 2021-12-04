@@ -2,6 +2,12 @@
     <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
+            <li class="mt">
+                <a href="{{ route('karyawan.dashboard.index') }}" class="{{ request()->is('*dashboard*') ? 'active' : '' }}">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
             <li class="">
                 <a href="{{ route('karyawan.members.index') }}" class="{{ request()->is('*members*') ? 'active' : '' }}">
                     <i class="fa fa-user"></i>
@@ -12,6 +18,12 @@
                 <a href="{{ route('karyawan.lapangans.index') }}" class="{{ request()->is('*lapangans*') ? 'active' : '' }}">
                     <i class="fa fa-bullseye"></i>
                     <span>Lapangan</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ route('karyawan.jadwals.index') }}" class="{{ request()->is('*jadwal*') ? 'active' : '' }}">
+                    <i class="fa fa-calendar-check-o"></i>
+                    <span>Jadwal</span>
                 </a>
             </li>
             <li class="">

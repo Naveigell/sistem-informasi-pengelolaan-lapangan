@@ -1,4 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" @if(in_array(request()->route()->getName(), ['member.booking.confirm', 'member.informasi.index'])) style="background: #212529" @endif>
+@php
+    $isDarkMode = request()->is('*pemesanan*') || request()->is('*pembayaran*');
+@endphp
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" @if($isDarkMode) style="background: #212529" @endif>
     <div class="container">
         <a class="navbar-brand" href="#page-top"><img src="{{ asset('img/member/navbar-logo.svg') }}" alt="..." /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +20,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('karyawan.auth.login.index') }}">Login Admin</a></li>
                     <li class="nav-item"><a class="nav-link">Register Member</a></li>
                 @elseif(auth('member')->check())
+                    <li class="nav-item"><a class="nav-link" href="">Akun</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 @endif
             </ul>

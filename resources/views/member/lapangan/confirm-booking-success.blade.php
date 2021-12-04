@@ -40,7 +40,7 @@
                                     <input class="form-control mt-2" type="text" value="Rp. {{ number_format($total, 0, ',', '.') }}" disabled>
                                 </div>
                                 <div class="form-group text text-info mt-5">
-                                    <label for="">Silakan melakukan pembayaran Rp. </label>
+                                    <label for="">Silakan melakukan pembayaran Rp. {{ number_format($total, 0, ',', '.') }}</label>
                                     <ul>
                                         <li>Bank Bri (098019204) an Gor Wangaya</li>
                                         <li>Bank BCA (071863812213) an Gor Wangaya</li>

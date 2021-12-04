@@ -38,4 +38,9 @@ class Lapangan extends Model
 
         $this->attributes['foto'] = $name;
     }
+
+    public function sesis()
+    {
+        return $this->hasMany(Sesi::class);
+    }
 }

@@ -20,6 +20,10 @@ class Pemesanan extends Model
         "total_harga", "batas_waktu", "status",
     ];
 
+    protected $appends = [
+        "valid_count", "waiting_count", "invalid_count"
+    ];
+
     public function member()
     {
         return $this->belongsTo(Member::class);
@@ -28,6 +32,31 @@ class Pemesanan extends Model
     public function sesiPemesanan()
     {
         return $this->hasMany(SesiPemesanan::class);
+    }
+
+    public function getValidCountAttribute()
+    {
+        return $this->hasMany(Pembayaran::class)->where('status', 'valid')->count();
+    }
+
+    public function getWaitingCountAttribute()
+    {
+        return $this->hasMany(Pembayaran::class)->whereNull('status')->count();
+    }
+
+    public function getInvalidCountAttribute()
+    {
+        return $this->hasMany(Pembayaran::class)->where('status', 'invalid')->count();
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopePaid($query)
+    {
+        $query->where('id', $this->attributes['id'])->update([
+            "status" => "paid",
+        ]);
     }
 
     /**

@@ -77,6 +77,7 @@ class PembayaranController extends Controller
      */
     public function update(PembayaranRequest $request, Pembayaran $pembayaran)
     {
+        $pembayaran->load('pemesanan');
         $pembayaran->update([
             "status" => $request->get('status'),
         ]);

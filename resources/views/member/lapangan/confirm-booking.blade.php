@@ -30,7 +30,7 @@
                                             <td>{{ request()->get('tanggal') }}</td>
                                             <td>{{ $time }}.00 - {{ $time + 2 }}.00</td>
                                             <td>{{ request()->get('jenis_sewa') }}</td>
-                                            <td>Rp. {{ number_format($lapangan->harga_reguler, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($lapangan->harga_reguler * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -46,7 +46,7 @@
                                     @if(request('jenis_sewa') == 'reguler')
                                         <td>Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])) * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                     @else
-                                        <td>Rp. {{ number_format($lapangan->harga_event, 0, ',', '.') }}</td>
+                                        <td>Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
                                     @endif
                                 </tr>
                                 </tbody>

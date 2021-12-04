@@ -22,4 +22,9 @@ class SesiPemesanan extends Model
     {
         return $this->belongsTo(Pemesanan::class);
     }
+
+    public function pemesananInThisMonth()
+    {
+        return $this->belongsTo(Pemesanan::class, 'pemesanan_id')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year);
+    }
 }

@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
-class PemesananController extends Controller
+class AkunController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->get();
-
-        return view('karyawan.pages.pemesanan.index', compact('pemesanans'));
+        //
     }
 
     /**

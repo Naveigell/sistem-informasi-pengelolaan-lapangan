@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Karyawan;
 
+use App\Exports\KasExcelExports;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Karyawan\KasRequest;
 use App\Models\Kas;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KasController extends Controller
 {
@@ -99,5 +101,10 @@ class KasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function print()
+    {
+        return Excel::download(new KasExcelExports(), 'Laporan kas.xlsx');
     }
 }

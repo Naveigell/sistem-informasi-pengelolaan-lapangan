@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kas;
+use App\Models\Lapangan;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +17,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('karyawan.pages.dashboard.index');
+        $totalMember   = Member::count();
+        $totalLapangan = Lapangan::count();
+        $totalKas      = Kas::where('jenis', 'debit')->sum('nilai');
+
+        $lapangansCollections     = Lapangan::with('sesis.sesiPemesanan.pemesananInThisMonth')->get()->toArray();
+
+        $lapangans = [];
+
+//        foreach ($lapangansCollections as $collection) {
+//            if (isset())
+//        }
+
+        return view('karyawan.pages.dashboard.index', compact('lapangans', 'totalKas', 'totalLapangan', 'totalMember'));
     }
 
     /**

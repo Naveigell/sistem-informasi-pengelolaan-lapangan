@@ -17,7 +17,7 @@ $saldo = 0;
 {{--                    @if(auth('pengguna')->user()->jabatan === 'staff')--}}
                         <a href="{{ route('karyawan.kas.create') }}" class="btn btn-success btn-sm">Tambah</a>
 {{--                    @endif--}}
-{{--                    <a href="{{ route('admin.kas.print') }}" class="btn btn-success btn-sm">Download .xls</a>--}}
+                    <a href="{{ route('karyawan.kas.print') }}" class="btn btn-success btn-sm">Download .xls</a>
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">

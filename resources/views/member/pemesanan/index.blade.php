@@ -43,12 +43,19 @@
                                     <td>{{ $pemesanan->status }}</td>
                                     <td>
                                         @if(!in_array($pemesanan->status, ['cancel']))
-                                            <a href="{{ route('member.pemesanans.show', $pemesanan) }}" class="btn btn-success btn-sm">Lakukan Pembayaran</a>
-                                            <button class="btn btn-danger btn-sm cancel-button" id="{{ $pemesanan->id }}">Batal</button>
-                                            <button class="btn btn-warning btn-sm">History Pembayaran</button>
-                                        @else
-                                            <span>Pemesanan dibatalkan</span>
+                                            @if(($pemesanan->waiting_count <= 0 || $pemesanan->invalid_count > 0) && $pemesanan->valid_count <= 0)
+                                                <a href="{{ route('member.pemesanans.show', $pemesanan) }}" class="btn btn-success btn-sm">Lakukan Pembayaran</a>
+                                            @elseif($pemesanan->valid_count > 0)
+                                                <button class="btn btn-info btn-sm">Pembayaran disetujui</button>
+                                            @elseif($pemesanan->waiting_count >= 0)
+                                                <button class="btn btn-info btn-sm">Menunggu Persetujuan</button>
+                                            @endif
                                         @endif
+
+                                        @if(in_array($pemesanan->status, ['open']))
+                                            <button class="btn btn-danger btn-sm cancel-button" id="{{ $pemesanan->id }}">Batal</button>
+                                        @endif
+                                        <button class="btn btn-warning btn-sm">History Pembayaran</button>
                                     </td>
                                 </tr>
                             @empty

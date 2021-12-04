@@ -51,12 +51,6 @@
                                     <a href="{{ route('karyawan.lapangans.show', $lapangan) }}" class="btn btn-info btn-sm">Detail</a>
                                     <a href="{{ route('karyawan.lapangans.edit', $lapangan) }}" class="btn btn-warning btn-sm">Edit</a>
                                 </td>
-{{--                                @unless(auth('pengguna')->user()->jabatan !== 'staff')--}}
-{{--                                    <td>--}}
-{{--                                        <a href="{{ route('karyawan.lapangans.show', $lapangan) }}" class="btn btn-info btn-sm">Detail</a>--}}
-{{--                                        <a href="{{ route('karyawan.lapangans.edit', $lapangan) }}" class="btn btn-warning btn-sm">Edit</a>--}}
-{{--                                    </td>--}}
-{{--                                @endunless--}}
                             </tr>
                         @endforeach
                         </tbody>
