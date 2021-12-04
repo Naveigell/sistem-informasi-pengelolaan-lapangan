@@ -18,7 +18,13 @@ class KasController extends Controller
      */
     public function index()
     {
-        $kas = Kas::with('karyawan')->get();
+        $query = Kas::with('karyawan');
+
+        if (\request()->filled('from') && \request()->filled('to')) {
+            $query->whereBetween('tanggal_transaksi', [\request()->get('from'), \request()->get('to')]);
+        }
+
+        $kas = $query->get();
 
         return view('karyawan.pages.kas.index', compact('kas'));
     }
@@ -105,6 +111,9 @@ class KasController extends Controller
 
     public function print()
     {
-        return Excel::download(new KasExcelExports(), 'Laporan kas.xlsx');
+        $from = \request()->get('from');
+        $to   = \request()->get('to');
+
+        return Excel::download(new KasExcelExports($from, $to), 'Laporan kas.xlsx');
     }
 }

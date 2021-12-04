@@ -13,11 +13,29 @@ $saldo = 0;
         <h3><i class="fa fa-angle-right"></i> Tabel Data Kas</h3>
         <div class="row mb">
             <div class="content-panel" style="padding: 20px 20px 60px 20px;">
+                <form action="{{ route('karyawan.kas.index') }}">
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="">Dari : </label>
+                            <input type="date" class="form-control" name="from" value="{{ request()->get('from') }}">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="">Sampai : </label>
+                            <input type="date" class="form-control" name="to" value="{{ request()->get('to') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-info btn-sm">Filter</button>
+                    </div>
+                </form>
+                <br>
+                <br>
+                <br>
                 <div class="mt" style="margin-bottom: 30px;">
 {{--                    @if(auth('pengguna')->user()->jabatan === 'staff')--}}
                         <a href="{{ route('karyawan.kas.create') }}" class="btn btn-success btn-sm">Tambah</a>
 {{--                    @endif--}}
-                    <a href="{{ route('karyawan.kas.print') }}" class="btn btn-success btn-sm">Download .xls</a>
+                    <a href="{{ route('karyawan.kas.print', ['from' => request()->get('from'), 'to' => request()->get('to')]) }}" class="btn btn-success btn-sm">Download .xls</a>
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">

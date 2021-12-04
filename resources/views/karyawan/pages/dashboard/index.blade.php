@@ -57,33 +57,45 @@
 
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-{{--    <script>--}}
-{{--        /** @param {Array} data */--}}
-{{--        const data = @json($lapangans);--}}
-{{--        let name = [], total = [];--}}
+    <script>
+        /** @param {Array} data */
+        const data = @json($lapangans);
+        let name = [], total = [];
 
-{{--        for (const datum of data) {--}}
-{{--            name.push(datum['nama_lapangan']);--}}
-{{--            total.push(datum['total']);--}}
-{{--        }--}}
+        for (const datum of data) {
+            name.push(datum['nama_lapangan']);
+            total.push(datum['total']);
+        }
 
-{{--        let ctx = document.getElementById('graph').getContext('2d');--}}
-{{--        let myChart = new Chart(ctx, {--}}
-{{--            type: 'bar',--}}
-{{--            data: {--}}
-{{--                labels: name,--}}
-{{--                datasets: [{--}}
-{{--                    label: 'Lapangan',--}}
-{{--                    data: total,--}}
-{{--                    backgroundColor: "rgba(57,149,255,0.36)",--}}
-{{--                    borderColor: "rgba(88,154,255,0.6)",--}}
-{{--                    borderWidth: 2,--}}
-{{--                }]--}}
-{{--            },--}}
-{{--            options: {--}}
-{{--                responsive: true,--}}
-{{--                maintainAspectRatio: true,--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
+        let ctx = document.getElementById('graph').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: name,
+                datasets: [{
+                    label: 'Lapangan',
+                    data: total,
+                    backgroundColor: "rgba(57,149,255,0.36)",
+                    borderColor: "rgba(88,154,255,0.6)",
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                }
+            }
+        });
+    </script>
 @endsection

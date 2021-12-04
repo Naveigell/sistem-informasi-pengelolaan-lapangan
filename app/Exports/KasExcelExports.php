@@ -11,13 +11,28 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class KasExcelExports implements FromCollection, ShouldAutoSize
 {
+    private $from = null;
+    private $to = null;
+
+    public function __construct($from = null, $to = null)
+    {
+        $this->from = $from;
+        $this->to = $to;
+    }
+
     public function collection()
     {
-        $cashes = Kas::with('karyawan')->get();
+        $query = Kas::with('karyawan');
+
+        if ($this->from && $this->to) {
+            $query->whereBetween('tanggal_transaksi', [$this->from, $this->to]);
+        }
+
+        $kas = $query->get();
         $items  = [];
 
-        foreach ($cashes as $index => $cash) {
-            $items[] = array_values($this->transform($index, $cash));
+        foreach ($kas as $index => $ka) {
+            $items[] = array_values($this->transform($index, $ka));
         }
 
         return new Collection([

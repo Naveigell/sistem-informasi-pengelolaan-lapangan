@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kas;
 use App\Models\Lapangan;
 use App\Models\Member;
+use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -21,13 +22,40 @@ class DashboardController extends Controller
         $totalLapangan = Lapangan::count();
         $totalKas      = Kas::where('jenis', 'debit')->sum('nilai');
 
-        $lapangansCollections     = Lapangan::with('sesis.sesiPemesanan.pemesananInThisMonth')->get()->toArray();
+        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year)->get();
 
-        $lapangans = [];
+        $collections = [];
 
-//        foreach ($lapangansCollections as $collection) {
-//            if (isset())
-//        }
+        foreach ($pemesanans as $pemesanan) {
+            foreach ($pemesanan->sesiPemesanan as $sesiPemesanan) {
+                if (array_key_exists($sesiPemesanan->sesi->lapangan->id, $collections)) {
+                    $collections[$sesiPemesanan->sesi->lapangan->id]['total'] += 1;
+                } else {
+                    $collections[$sesiPemesanan->sesi->lapangan->id] = [
+                        "nama_lapangan" => $sesiPemesanan->sesi->lapangan->nama_lapangan,
+                        "total"         => 1,
+                        "id"            => $sesiPemesanan->sesi->lapangan->id,
+                    ];
+                }
+            }
+        }
+
+        $collections = collect($collections);
+        $lapangans   = [];
+
+        foreach (Lapangan::all() as $lapangan) {
+            if (!array_key_exists($lapangan->id, $collections->toArray())) {
+                $lapangans[] = [
+                    "nama_lapangan" => $lapangan->nama_lapangan,
+                    "total"         => 0,
+                ];
+            } else {
+                $lapangans[] = [
+                    "nama_lapangan" => $lapangan->nama_lapangan,
+                    "total"         => $collections->toArray()[$lapangan->id]['total'],
+                ];
+            }
+        }
 
         return view('karyawan.pages.dashboard.index', compact('lapangans', 'totalKas', 'totalLapangan', 'totalMember'));
     }
