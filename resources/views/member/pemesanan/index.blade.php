@@ -43,19 +43,23 @@
                                     <td>{{ $pemesanan->status }}</td>
                                     <td>
                                         @if(!in_array($pemesanan->status, ['cancel']))
-                                            @if(($pemesanan->waiting_count <= 0 || $pemesanan->invalid_count > 0) && $pemesanan->valid_count <= 0)
-                                                <a href="{{ route('member.pemesanans.show', $pemesanan) }}" class="btn btn-success btn-sm">Lakukan Pembayaran</a>
+                                            @if($pemesanan->waiting_count > 0)
+                                                <button class="btn btn-info btn-sm">Menunggu Persetujuan</button>
+                                            @elseif(($pemesanan->waiting_count <= 0 || $pemesanan->invalid_count > 0) && $pemesanan->valid_count <= 0)
+                                                <a href="{{ route('member.pemesanans.show', $pemesanan) }}" class="btn btn-success btn-sm">Lakukan Pembayaran {{ $pemesanan->invalid_count > 0 ? 'Kembali' : '' }}</a>
                                             @elseif($pemesanan->valid_count > 0)
                                                 <button class="btn btn-info btn-sm">Pembayaran disetujui</button>
-                                            @elseif($pemesanan->waiting_count >= 0)
-                                                <button class="btn btn-info btn-sm">Menunggu Persetujuan</button>
                                             @endif
                                         @endif
 
-                                        @if(in_array($pemesanan->status, ['open']))
+                                        @if(in_array($pemesanan->status, ['open']) && $pemesanan->pembayarans->count() <= 0)
                                             <button class="btn btn-danger btn-sm cancel-button" id="{{ $pemesanan->id }}">Batal</button>
+                                            <a href="{{ route('member.pemesanans.detail', $pemesanan) }}" class="btn btn-dark btn-sm">Detail pemesanan</a>
                                         @endif
-                                        <button class="btn btn-warning btn-sm">History Pembayaran</button>
+
+                                        @if($pemesanan->pembayarans->count() > 0)
+                                            <button class="btn btn-warning btn-sm">History Pembayaran</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
@@ -86,7 +90,7 @@
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#e74a3b',
-                    confirmButtonText: 'Hapus',
+                    confirmButtonText: 'Iya',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {

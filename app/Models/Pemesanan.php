@@ -17,12 +17,17 @@ class Pemesanan extends Model
 
     protected $fillable = [
         "karyawan_id", "lapangan_id", "member_id", "tanggal_sewa", "jenis_sewa",
-        "total_harga", "batas_waktu", "status",
+        "total_harga", "batas_waktu", "status", "total_durasi",
     ];
 
     protected $appends = [
         "valid_count", "waiting_count", "invalid_count"
     ];
+
+    public function pembayarans()
+    {
+        return $this->hasMany(Pembayaran::class);
+    }
 
     public function member()
     {

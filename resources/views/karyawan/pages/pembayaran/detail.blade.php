@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Konfirmasi status</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ ucfirst($pembayaran->status) }}" class="form-control">
+                            <input type="text" disabled value="{{ $pembayaran->status ? ucfirst($pembayaran->status) : 'Belum terkonfirmasi' }}" class="form-control">
                         </div>
                     </div>
                 </form>

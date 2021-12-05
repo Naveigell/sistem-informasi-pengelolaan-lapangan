@@ -20,7 +20,7 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('member')->get();
+        $pemesanans = Pemesanan::with('member', 'pembayarans')->get();
 
         return view('member.pemesanan.index', compact('pemesanans'));
     }
@@ -56,6 +56,7 @@ class PemesananController extends Controller
                 "tanggal_sewa" => $request->get('tanggal'),
                 "jenis_sewa"   => $request->get('jenis_sewa'),
                 "total_harga"  => $request->get('jenis_sewa') == 'reguler' ? count($request->get('waktu', [])) * config('static.minimum_rent', 2) * $lapangan->harga_reguler : $lapangan->harga_turnamen,
+                "total_durasi" => count($request->get('waktu', [])) * config('static.minimum_rent', 2),
                 "batas_waktu"  => now()->addDay()->toDateTimeString(),
                 "status"       => "open",
             ]);
@@ -137,6 +138,11 @@ class PemesananController extends Controller
     public function show(Pemesanan $pemesanan)
     {
         return view('member.pemesanan.detail', compact('pemesanan'));
+    }
+
+    public function detail(Pemesanan $pemesanan)
+    {
+        return view('member.pemesanan.detail-pemesanan', compact('pemesanan'));
     }
 
     /**

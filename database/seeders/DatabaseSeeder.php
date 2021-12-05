@@ -12,6 +12,8 @@ use App\Models\Penyewaan;
 use App\Models\Sesi;
 use App\Models\SesiPemesanan;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +29,30 @@ class DatabaseSeeder extends Seeder
         Lapangan::factory(5)->create();
         Karyawan::factory(10)->create();
         Kas::factory(20)->create();
+
+        $staff = new Karyawan([
+            "nama_pengguna"     => "staff",
+            "alamat"            => "Jalan staff",
+            "no_telp"           => "08932849123",
+            "jabatan"           => "staff",
+            "email"             => "staff@email.com",
+            "username"          => "staff",
+            "password"          => Hash::make(123456),
+            "status"            => "aktif"
+        ]);
+        $staff->save();
+
+        $pemilik = new Karyawan([
+            "nama_pengguna"     => "pemilik",
+            "alamat"            => "Jalan pemilik",
+            "no_telp"           => "08932849123",
+            "jabatan"           => "pemilik",
+            "email"             => "pemilik@email.com",
+            "username"          => "pemilik",
+            "password"          => Hash::make(123456),
+            "status"            => "aktif"
+        ]);
+        $pemilik->save();
 //        Pemesanan::factory(20)->create();
 //        Pembayaran::factory(20)->create();
 //        Penyewaan::factory(20)->create();

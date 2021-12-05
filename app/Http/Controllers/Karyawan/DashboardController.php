@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $totalLapangan = Lapangan::count();
         $totalKas      = Kas::where('jenis', 'debit')->sum('nilai');
 
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year)->get();
+        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year)->where('status', 'paid')->get();
 
         $collections = [];
 
