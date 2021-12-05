@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('karyawan')->name('karyawan.')->group(function () {
+Route::prefix('karyawan')->name('karyawan.')->middleware('should.karyawan')->group(function () {
     Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
     Route::get('/kas/print', [\App\Http\Controllers\Karyawan\KasController::class, 'print'])->name('kas.print');
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
@@ -36,7 +36,7 @@ Route::prefix('karyawan/auth')->name('karyawan.auth.')->group(function () {
     Route::post('/login', [\App\Http\Controllers\Auth\AuthKaryawanController::class, 'login'])->name('login.store');
 });
 
-Route::prefix('member')->name('member.')->group(function () {
+Route::prefix('member')->name('member.')->middleware('should.member')->group(function () {
     Route::post('/pemesanans/{lapangan}/confirm', [\App\Http\Controllers\Member\PemesananController::class, 'confirmation'])->name('pemesanans.confirm');
     Route::get('/pemesanans/{pemesanan}/detail', [\App\Http\Controllers\Member\PemesananController::class, 'detail'])->name('pemesanans.detail');
     Route::resource('pemesanans', \App\Http\Controllers\Member\PemesananController::class);

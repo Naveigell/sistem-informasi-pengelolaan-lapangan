@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class ShouldHaveRole
+class ShouldKaryawan
 {
     /**
      * Handle an incoming request.
@@ -16,6 +16,10 @@ class ShouldHaveRole
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!auth('karyawan')->check()) {
+            abort(404);
+        }
+
         return $next($request);
     }
 }
