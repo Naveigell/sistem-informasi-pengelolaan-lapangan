@@ -18,7 +18,7 @@ class KasController extends Controller
      */
     public function index()
     {
-        $query = Kas::with('karyawan');
+        $query = Kas::with('karyawan')->latest();
 
         if (\request()->filled('from') && \request()->filled('to')) {
             $query->whereBetween('tanggal_transaksi', [\request()->get('from'), \request()->get('to')]);

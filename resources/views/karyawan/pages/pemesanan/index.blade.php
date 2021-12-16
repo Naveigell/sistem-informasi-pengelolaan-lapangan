@@ -30,7 +30,7 @@
                                 <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
                                 <td>{{ $pemesanan->member->nama_member }}</td>
                                 <td>{{ $pemesanan->jenis_sewa }}</td>
-                                <td>Rp {{ number_format($pemesanan->total_harga, 0, '', '.') }}</td>
+                                <td style="text-align: right;">Rp {{ number_format($pemesanan->total_harga, 0, '', '.') }}</td>
                                 <td>{{ ucfirst($pemesanan->status) }}</td>
                             </tr>
                         @endforeach

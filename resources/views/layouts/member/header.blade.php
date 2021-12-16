@@ -20,6 +20,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('karyawan.auth.login.index') }}">Login Admin</a></li>
                     <li class="nav-item"><a class="nav-link">Register Member</a></li>
                 @elseif(auth('member')->check())
+                    <li class="nav-item"><a class="nav-link" href="">Jadwal</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Akun</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 @endif

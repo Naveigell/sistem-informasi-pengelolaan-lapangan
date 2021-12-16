@@ -23,7 +23,7 @@
             <li class="">
                 <a href="{{ route('karyawan.jadwals.index') }}" class="{{ request()->is('*jadwal*') ? 'active' : '' }}">
                     <i class="fa fa-calendar-check-o"></i>
-                    <span>Jadwal</span>
+                    <span>Penyewaan</span>
                 </a>
             </li>
             <li class="">

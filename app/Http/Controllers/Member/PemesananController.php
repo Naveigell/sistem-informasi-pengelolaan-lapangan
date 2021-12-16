@@ -20,7 +20,7 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('member', 'pembayarans')->get();
+        $pemesanans = Pemesanan::with('member', 'pembayarans')->where('member_id', auth('member')->id())->get();
 
         return view('member.pemesanan.index', compact('pemesanans'));
     }

@@ -5,41 +5,43 @@
         <h3><i class="fa fa-angle-right"></i> Jadwal Sewa Lapangan</h3>
         <div class="row mb">
             <div class="content-panel" style="padding: 20px 20px 60px 20px;">
-{{--                <form action="{{ route('karyawan.jadwals.index') }}">--}}
-{{--                    <div class="row">--}}
-{{--                        <div class="form-group col-lg-3">--}}
-{{--                            <label for="">Dari : </label>--}}
-{{--                            <input type="date" class="form-control" name="from" value="{{ request()->get('from') }}">--}}
-{{--                        </div>--}}
-{{--                        <div class="form-group col-lg-3">--}}
-{{--                            <label for="">Sampai : </label>--}}
-{{--                            <input type="date" class="form-control" name="to" value="{{ request()->get('to') }}">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <button class="btn btn-info btn-sm">Filter</button>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--                <br>--}}
-{{--                <br>--}}
-{{--                <br>--}}
+                <form action="{{ route('karyawan.jadwals.index') }}">
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="">Filter : </label>
+                            <select class="form-control" name="filter" id="">
+                                <option>--- Nothing selected ---</option>
+                                <option value="">Semua</option>
+                                <option value="akan-berlangsung">Akan Berlangsung</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-info btn-sm">Filter</button>
+                    </div>
+                </form>
+                <br>
+                <br>
+                <br>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                         <thead>
                         <tr>
                             <th class="hidden-phone">No</th>
-                            <th class="hidden-phone">Nama lapangan</th>
+                            <th class="hidden-phone">Nomor lapangan</th>
                             <th class="hidden-phone">Tanggal Sewa</th>
                             <th class="hidden-phone">Jam mulai</th>
                             <th class="hidden-phone">Jam selesai</th>
                             <th class="hidden-phone">Status</th>
+                            <th class="hidden-phone">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @php
                             $no = 0;
                         @endphp
-                        @forelse($pemesanans as $pemesanan)
+                        @foreach($pemesanans as $pemesanan)
                             @foreach($pemesanan->sesiPemesanan as $sesiPemesanan)
                                 <tr class="gradeX">
                                     <td>{{ ++$no }}</td>
@@ -62,13 +64,12 @@
                                             Akan berlangsung
                                         @endif
                                     </td>
+                                    <td>
+                                        <a href="{{ route('karyawan.jadwals.show', ['pemesanan' => $pemesanan->id, 'lapangan' => $sesiPemesanan->sesi->lapangan->id, 'sesi' => $sesiPemesanan->sesi->id]) }}" class="btn btn-warning btn-sm">Detail</a>
+                                    </td>
                                 </tr>
                             @endforeach
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center">Data emtpy</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -48,7 +48,7 @@
                                     <label for="">Kemudian menuju menu pesanan dan lakukan pembayaran dengan nomor transaksi <b></b></label>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <a href="{{ '/' }}" class="btn btn-link btn-success" style="color: white; text-decoration: none;">Ke halaman utama</a>
+                                    <a href="{{ route('member.pemesanans.index') }}" class="btn btn-link btn-success" style="color: white; text-decoration: none;">Ke halaman pemesanan</a>
                                 </div>
                             </div>
                         </form>

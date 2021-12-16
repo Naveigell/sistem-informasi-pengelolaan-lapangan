@@ -11,37 +11,37 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Member</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->pemesanan->member->nama_member }}" class="form-control">
+                            : {{ $pembayaran->pemesanan->member->nama_member }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tanggal Pembayaran</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->tanggal_pembayaran }}" class="form-control">
+                            : {{ $pembayaran->tanggal_pembayaran }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Total Pembayaran</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="Rp. {{ number_format($pembayaran->pemesanan->total_harga, 0, ',', '.') }}" class="form-control">
+                            : Rp. {{ number_format($pembayaran->pemesanan->total_harga, 0, ',', '.') }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->nomor_rekening_pengirim }}" class="form-control">
+                            : {{ $pembayaran->nomor_rekening_pengirim }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->bank_tujuan }}" class="form-control">
+                            : {{ $pembayaran->bank_tujuan }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->bank_pengirim }}" class="form-control">
+                            : {{ $pembayaran->bank_pengirim }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Konfirmasi status</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled value="{{ $pembayaran->status ? ucfirst($pembayaran->status) : 'Belum terkonfirmasi' }}" class="form-control">
+                            : {{ $pembayaran->status ? ucfirst($pembayaran->status) : 'Belum terkonfirmasi' }}
                         </div>
                     </div>
                 </form>

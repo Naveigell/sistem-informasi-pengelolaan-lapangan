@@ -17,7 +17,8 @@ Route::prefix('karyawan')->name('karyawan.')->middleware('should.karyawan')->gro
     Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
     Route::get('/kas/print', [\App\Http\Controllers\Karyawan\KasController::class, 'print'])->name('kas.print');
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
-    Route::resource('jadwals', \App\Http\Controllers\Karyawan\JadwalController::class);
+    Route::resource('jadwals', \App\Http\Controllers\Karyawan\JadwalController::class)->except(['show']);
+    Route::get('/jadwals/{pemesanan}/lapangan/{lapangan}/sesi/{sesi}', [\App\Http\Controllers\Karyawan\JadwalController::class, 'show'])->name('jadwals.show');
     Route::resource('members', \App\Http\Controllers\Karyawan\MemberController::class);
     Route::resource('pemesanans', \App\Http\Controllers\Karyawan\PemesananController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);
@@ -29,6 +30,9 @@ Route::resource('/', \App\Http\Controllers\HomeController::class);
 Route::prefix('member/auth')->name('member.auth.')->group(function () {
     Route::view('/login', 'auth.member.login')->name('login.index');
     Route::post('/login', [\App\Http\Controllers\Auth\AuthMemberController::class, 'login'])->name('login.store');
+
+    Route::view('/register', 'auth.member.register')->name('register.index');
+    Route::post('/register', [\App\Http\Controllers\Auth\AuthMemberController::class, 'register'])->name('register.store');
 });
 
 Route::prefix('karyawan/auth')->name('karyawan.auth.')->group(function () {

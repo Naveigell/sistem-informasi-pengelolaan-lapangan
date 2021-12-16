@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Karyawan;
 use App\Models\Kas;
-use App\Models\Pengguna;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 

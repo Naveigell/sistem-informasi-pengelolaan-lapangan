@@ -22,10 +22,10 @@
                         <thead>
                         <tr>
                             <th class="hidden-phone">No</th>
-                            <th class="hidden-phone">Nama lapangan</th>
+                            <th class="hidden-phone">Nomor lapangan</th>
                             <th class="hidden-phone">Deskripsi lapangan</th>
-                            <th class="hidden-phone">Harga reguler</th>
-                            <th class="hidden-phone">Harga turnamen</th>
+                            <th class="hidden-phone">Harga reguler (Rp)</th>
+                            <th class="hidden-phone">Harga turnamen (Rp)</th>
                             <th class="hidden-phone">Foto</th>
 {{--                            @unless(auth('pengguna')->user()->jabatan !== 'staff')--}}
                                 <th class="hidden-phone">Aksi</th>

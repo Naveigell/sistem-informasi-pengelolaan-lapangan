@@ -12,3 +12,9 @@
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
 <script src="{{ asset('lib/chart-master/Chart.js') }}"></script>
+
+<style>
+    table thead tr th {
+        text-align: center;
+    }
+</style>

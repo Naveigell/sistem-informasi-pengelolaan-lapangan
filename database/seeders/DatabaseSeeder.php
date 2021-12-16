@@ -25,17 +25,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Member::factory(10)->create();
-        Lapangan::factory(5)->create();
-        Karyawan::factory(10)->create();
-        Kas::factory(20)->create();
+//        Kas::factory(20)->create();
 
         $staff = new Karyawan([
             "nama_pengguna"     => "staff",
             "alamat"            => "Jalan staff",
             "no_telp"           => "08932849123",
             "jabatan"           => "staff",
-            "email"             => "staff@email.com",
+            "email"             => "staff@gmail.com",
             "username"          => "staff",
             "password"          => Hash::make(123456),
             "status"            => "aktif"
@@ -47,12 +44,26 @@ class DatabaseSeeder extends Seeder
             "alamat"            => "Jalan pemilik",
             "no_telp"           => "08932849123",
             "jabatan"           => "pemilik",
-            "email"             => "pemilik@email.com",
+            "email"             => "pemilik@gmail.com",
             "username"          => "pemilik",
             "password"          => Hash::make(123456),
             "status"            => "aktif"
         ]);
         $pemilik->save();
+
+        $member = new Member([
+            "nama_member"       => "member",
+            "alamat_member"     => "Alamat member",
+            "hp"                => "08123135456",
+            "email"             => "member@gmail.com",
+            "password"          => Hash::make(123456),
+            "status"            => "aktif",
+        ]);
+        $member->save();
+
+        Member::factory(10)->create();
+        Lapangan::factory(5)->create();
+        Karyawan::factory(10)->create();
 //        Pemesanan::factory(20)->create();
 //        Pembayaran::factory(20)->create();
 //        Penyewaan::factory(20)->create();

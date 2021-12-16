@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lapangan;
 use App\Models\Pemesanan;
 use App\Models\Sesi;
 use Illuminate\Http\Request;
@@ -12,11 +13,24 @@ class JadwalController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->orderBy('tanggal_sewa')->get();
+        $query = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->where('status', 'paid')->orderBy('tanggal_sewa');
+
+        if ($request->filled('filter')) {
+            $filter = $request->get('filter');
+
+            if ($filter === 'akan-berlangsung') {
+                $query->whereDate('tanggal_sewa', '>', now()->toDateString());
+            } elseif ($filter === 'selesai') {
+                $query->whereDate('tanggal_sewa', '<', now()->toDateString());
+            }
+        }
+
+        $pemesanans = $query->get();
 
         return view('karyawan.pages.jadwal.index', compact('pemesanans'));
     }
@@ -45,12 +59,16 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @param Lapangan $lapangan
+     * @param Sesi $sesi
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Lapangan $lapangan, Sesi $sesi)
     {
-        //
+        $pemesanan = Pemesanan::with('member')->where('id', $id)->firstOrFail();
+
+        return view('karyawan.pages.jadwal.detail', compact('pemesanan', 'lapangan', 'sesi'));
     }
 
     /**

@@ -16,7 +16,7 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $pembayarans = Pembayaran::with('pemesanan.member')->get();
+        $pembayarans = Pembayaran::with('pemesanan.member')->latest()->get();
 
         return view('karyawan.pages.pembayaran.index', compact('pembayarans'));
     }

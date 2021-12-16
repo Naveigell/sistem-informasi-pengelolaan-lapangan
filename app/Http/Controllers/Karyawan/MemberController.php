@@ -16,7 +16,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::all();
+        $members = Member::query()->latest()->get();
 
         return view('karyawan.pages.members.index', compact('members'));
     }

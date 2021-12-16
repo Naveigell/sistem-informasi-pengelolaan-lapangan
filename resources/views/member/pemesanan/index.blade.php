@@ -25,7 +25,7 @@
                             <th class="hidden-phone">Nama Member</th>
                             <th class="hidden-phone">Tanggal Sewa</th>
                             <th class="hidden-phone">Jenis Sewa</th>
-                            <th class="hidden-phone">Total Harga</th>
+                            <th class="hidden-phone">Total Harga (Rp)</th>
                             <th class="hidden-phone">Batas Waktu</th>
                             <th class="hidden-phone">Status</th>
                             <th class="hidden-phone">Aksi</th>
@@ -38,7 +38,7 @@
                                     <td>{{ $pemesanan->member->nama_member }}</td>
                                     <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
                                     <td>{{ $pemesanan->jenis_sewa }}</td>
-                                    <td>Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
+                                    <td style="text-align: right;">Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($pemesanan->batas_waktu)->format('d F Y H:i') }}</td>
                                     <td>{{ $pemesanan->status }}</td>
                                     <td>

@@ -45,8 +45,8 @@ $saldo = 0;
                             <th class="hidden-phone">Tanggal</th>
                             <th class="hidden-phone">Keterangan</th>
                             <th class="hidden-phone">Debit</th>
-                            <th class="hidden-phone">Kredit</th>
-                            <th class="hidden-phone">Saldo</th>
+                            <th class="hidden-phone">Kredit (Rp)</th>
+                            <th class="hidden-phone">Saldo (Rp)</th>
                             <th class="hidden-phone">Penanggung Jawab</th>
 {{--                            @if(auth('pengguna')->user()->jabatan === 'staff')--}}
                                 <th class="hidden-phone">Aksi</th>

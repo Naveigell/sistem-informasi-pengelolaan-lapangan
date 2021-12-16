@@ -15,7 +15,7 @@
                                     <th class="hidden-phone">Tanggal</th>
                                     <th class="hidden-phone">Waktu</th>
                                     <th class="hidden-phone">Jenis</th>
-                                    <th class="hidden-phone">Harga</th>
+                                    <th class="hidden-phone">Harga (Rp)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -25,7 +25,7 @@
                                             <td>{{ request()->get('tanggal') }}</td>
                                             <td>{{ $time }}.00 - {{ $time + 2 }}.00</td>
                                             <td>{{ request()->get('jenis_sewa') }}</td>
-                                            <td>Rp. {{ number_format($lapangan->harga_reguler * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
+                                            <td style="text-align: right;">Rp. {{ number_format($lapangan->harga_reguler * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -33,15 +33,15 @@
                                         <td>{{ request()->get('tanggal') }}</td>
                                         <td>-</td>
                                         <td>{{ request()->get('jenis_sewa') }}</td>
-                                        <td>Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
+                                        <td style="text-align: right;">Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
                                     </tr>
                                 @endif
                                 <tr>
                                     <td colspan="3">Total</td>
                                     @if(request('jenis_sewa') == 'reguler')
-                                        <td>Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])) * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
+                                        <td style="text-align: right;">Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])) * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                     @else
-                                        <td>Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
+                                        <td style="text-align: right;">Rp. {{ number_format($lapangan->harga_turnamen, 0, ',', '.') }}</td>
                                     @endif
                                 </tr>
                                 </tbody>

@@ -19,29 +19,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama lapangan</label>
                         <div class="col-sm-10">
-                            <input disabled name="nama_lapangan" type="text" value="{{ $lapangan->nama_lapangan }}" class="form-control">
-                            <span class="help-block">Masukkan nama lapangan. Cth: Lapangan B</span>
+                            : {{ $lapangan->nama_lapangan }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Deskripsi lapangan</label>
                         <div class="col-sm-10">
-                            <textarea disabled name="deskripsi_lapangan" id="" cols="30" rows="10" class="form-control">{{ $lapangan->deskripsi_lapangan }}</textarea>
-                            <span class="help-block">Masukkan deskripsi lapangan. Cth: Lapangan B biasa digunakan oleh ...</span>
+                            : {{ $lapangan->deskripsi_lapangan }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Harga reguler</label>
                         <div class="col-sm-10">
-                            <input disabled name="harga_reguler" type="text" value="{{ $lapangan->harga_reguler }}" class="form-control">
-                            <span class="help-block">Masukkan harga reguler lapangan. Cth: 100000</span>
+                            : {{ $lapangan->harga_reguler }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Harga turnamen</label>
                         <div class="col-sm-10">
-                            <input disabled name="harga_turnamen" type="text" value="{{ $lapangan->harga_turnamen }}" class="form-control">
-                            <span class="help-block">Masukkan harga turnamen lapangan. Cth: 300000</span>
+                            : {{ $lapangan->harga_turnamen }}
                         </div>
                     </div>
                     <div class="form-group">

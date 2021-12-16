@@ -16,7 +16,7 @@ class LapanganController extends Controller
      */
     public function index()
     {
-        $lapangans = Lapangan::all();
+        $lapangans = Lapangan::query()->latest()->get();
 
         return view('karyawan.pages.lapangan.index', compact('lapangans'));
     }
