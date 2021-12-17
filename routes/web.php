@@ -48,6 +48,7 @@ Route::prefix('member')->name('member.')->middleware('should.member')->group(fun
     Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Member\PembayaranController::class);
     Route::resource('akuns', \App\Http\Controllers\Member\AkunController::class);
+    Route::put('/akuns/{akun}/password', [\App\Http\Controllers\Member\AkunController::class, 'updatePassword'])->name('akuns.update.password');
 });
 
 Route::get('/logout', function () {

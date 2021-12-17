@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Member\BiodataRequest;
+use App\Http\Requests\Member\PasswordRequest;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class AkunController extends Controller
@@ -10,11 +13,11 @@ class AkunController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('member.akun.index');
     }
 
     /**
@@ -65,11 +68,25 @@ class AkunController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(BiodataRequest $request, $id)
     {
-        //
+        $member = Member::query()->findOrFail(auth('member')->id());
+        $member->fill($request->validated());
+        $member->save();
+
+        return back()->with('success-biodata', 'Biodata berhasil diubah');
+    }
+
+    public function updatePassword(PasswordRequest $request, $id)
+    {
+        $member = Member::query()->findOrFail(auth('member')->id());
+        $member->update([
+            "password" => $request->get('new_password'),
+        ]);
+
+        return back()->with('success-password', 'Password berhasil diubah');
     }
 
     /**

@@ -12,4 +12,9 @@ class Member extends Authenticatable
     protected $fillable = [
         "nama_member", "alamat_member", "hp", "email", "password", "status",
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = \Hash::make($value);
+    }
 }
