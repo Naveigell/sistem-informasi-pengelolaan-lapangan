@@ -12,11 +12,13 @@
     <meta name="author" content="" />
     <title>Agency - Start Bootstrap Theme</title>
     @include('layouts.member.style')
+    @yield('style', '')
 </head>
 <body id="page-top">
 <!-- Navigation-->
 @include('layouts.member.header')
 @yield('content')
+@yield('modal', '')
 @include('layouts.member.script')
 @yield('script', '')
 </body>

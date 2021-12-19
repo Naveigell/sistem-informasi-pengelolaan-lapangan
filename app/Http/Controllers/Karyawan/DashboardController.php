@@ -57,7 +57,9 @@ class DashboardController extends Controller
             }
         }
 
-        return view('karyawan.pages.dashboard.index', compact('lapangans', 'totalKas', 'totalLapangan', 'totalMember'));
+        $pemesanans = Pemesanan::with('member')->latest()->take(6)->get();
+
+        return view('karyawan.pages.dashboard.index', compact('lapangans', 'totalKas', 'totalLapangan', 'totalMember', 'pemesanans'));
     }
 
     /**

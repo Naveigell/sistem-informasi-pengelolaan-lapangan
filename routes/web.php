@@ -45,8 +45,10 @@ Route::prefix('member')->name('member.')->middleware('should.member')->group(fun
     Route::get('/pemesanans/{pemesanan}/detail', [\App\Http\Controllers\Member\PemesananController::class, 'detail'])->name('pemesanans.detail');
     Route::resource('pemesanans', \App\Http\Controllers\Member\PemesananController::class);
     Route::delete('/pemesanans/{pemesanan}/cancel', [\App\Http\Controllers\Member\PemesananController::class, 'cancel'])->name('pemesanans.cancel');
+    Route::get('/pemesanans/{pemesanan}/history', [\App\Http\Controllers\Member\PemesananController::class, 'history'])->name('pemesanans.history');
     Route::resource('lapangans', \App\Http\Controllers\Member\LapanganController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Member\PembayaranController::class);
+    Route::resource('jadwals', \App\Http\Controllers\Member\JadwalController::class);
     Route::resource('akuns', \App\Http\Controllers\Member\AkunController::class);
     Route::put('/akuns/{akun}/password', [\App\Http\Controllers\Member\AkunController::class, 'updatePassword'])->name('akuns.update.password');
 });

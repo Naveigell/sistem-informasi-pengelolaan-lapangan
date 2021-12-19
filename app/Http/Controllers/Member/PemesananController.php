@@ -25,6 +25,13 @@ class PemesananController extends Controller
         return view('member.pemesanan.index', compact('pemesanans'));
     }
 
+    public function history(Pemesanan $pemesanan)
+    {
+        $pemesanan->load('latestPembayaran', 'sesiPemesanan.sesi.lapangan', 'member');
+
+        return view('member.pemesanan.history', compact('pemesanan'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

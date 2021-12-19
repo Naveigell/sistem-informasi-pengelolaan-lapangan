@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-3">
+                    <div class="mt-3">
                         <div class="card mb-3">
                             <div class="card-header">Ubah password</div>
                             <div class="card-body">
@@ -164,6 +164,42 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header">History Pemesanan</div>
+                        <div class="card-body">
+                            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="table">
+                                <thead>
+                                <tr>
+                                    <th class="hidden-phone">No</th>
+                                    <th class="hidden-phone">Tanggal Sewa</th>
+                                    <th class="hidden-phone">Nomor Lapangan</th>
+                                    <th class="hidden-phone">Waktu</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $no = 0;
+                                @endphp
+                                @foreach($pemesanans as $pemesanan)
+                                    @foreach($pemesanan->sesiPemesanan as $sesiPemesanan)
+                                        <tr class="gradeX">
+                                            <td>{{ ++$no }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                            <td>{{ $sesiPemesanan->sesi->lapangan->nama_lapangan }}</td>
+                                            @if($pemesanan->jenis_sewa === 'reguler')
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_selesai)->format('H:i') }}
+                                                </td>
+                                            @else
+                                                <td>-</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

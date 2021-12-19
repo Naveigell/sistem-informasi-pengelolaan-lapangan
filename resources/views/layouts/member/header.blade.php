@@ -1,5 +1,5 @@
 @php
-    $isDarkMode = request()->is('*pemesanan*') || request()->is('*pembayaran*') || request()->is('*akun*');
+    $isDarkMode = request()->is('*pemesanan*') || request()->is('*pembayaran*') || request()->is('*akun*') || request()->is('*jadwal*');
 @endphp
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" @if($isDarkMode) style="background: #212529" @endif>
@@ -20,7 +20,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('karyawan.auth.login.index') }}">Login Admin</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('member.auth.register.index') }}">Register Member</a></li>
                 @elseif(auth('member')->check())
-                    <li class="nav-item"><a class="nav-link" href="">Jadwal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('member.jadwals.index') }}">Jadwal</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('member.akuns.index') }}">Akun</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 @endif

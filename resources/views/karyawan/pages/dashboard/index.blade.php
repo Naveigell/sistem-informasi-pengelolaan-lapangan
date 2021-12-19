@@ -53,6 +53,41 @@
             <canvas id="graph" class="chart-canvas"></canvas>
         </div>
     </div>
+    <br>
+    <div class="container">
+        <div class="content-panel" style="padding: 30px;">
+            <h3>Pemesanan terbaru</h3>
+            <br>
+            <div class="adv-table">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                    <thead>
+                    <tr>
+                        <th class="hidden-phone">No</th>
+                        <th class="hidden-phone">Tanggal Sewa</th>
+                        <th class="hidden-phone">Nama Penyewa</th>
+                        <th class="hidden-phone">Jenis Sewa</th>
+                        <th class="hidden-phone">Total Harga (Rp)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($pemesanans as $pemesanan)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ \Carbon\Carbon::make($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                <td>{{ $pemesanan->member->nama_member }}</td>
+                                <td>{{ $pemesanan->jenis_sewa }}</td>
+                                <td style="text-align: right;">Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Data Kosong</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')

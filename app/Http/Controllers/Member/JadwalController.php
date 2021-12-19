@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Member\BiodataRequest;
-use App\Http\Requests\Member\PasswordRequest;
-use App\Models\Member;
 use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
-class AkunController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +15,9 @@ class AkunController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->where('member_id', auth('member')->id())->get();
+        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->where('member_id', auth('member')->id())->where('status', 'paid')->orderBy('tanggal_sewa')->get();
 
-        return view('member.akun.index', compact('pemesanans'));
+        return view('member.jadwal.index', compact('pemesanans'));
     }
 
     /**
@@ -71,25 +68,11 @@ class AkunController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
-    public function update(BiodataRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $member = Member::query()->findOrFail(auth('member')->id());
-        $member->fill($request->validated());
-        $member->save();
-
-        return back()->with('success-biodata', 'Biodata berhasil diubah');
-    }
-
-    public function updatePassword(PasswordRequest $request, $id)
-    {
-        $member = Member::query()->findOrFail(auth('member')->id());
-        $member->update([
-            "password" => $request->get('new_password'),
-        ]);
-
-        return back()->with('success-password', 'Password berhasil diubah');
+        //
     }
 
     /**

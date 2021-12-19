@@ -58,7 +58,7 @@
                                         @endif
 
                                         @if($pemesanan->pembayarans->count() > 0)
-                                            <button class="btn btn-warning btn-sm">History Pembayaran</button>
+                                            <a href="{{ route('member.pemesanans.history', $pemesanan) }}" class="btn btn-warning btn-sm">History Pembayaran</a>
                                         @endif
                                     </td>
                                 </tr>

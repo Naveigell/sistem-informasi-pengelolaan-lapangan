@@ -44,7 +44,7 @@
                                     </tr>
                                 @endif
                                 <tr>
-                                    <td colspan="3">Total</td>
+                                    <td colspan="4">Total</td>
                                     @if(request('jenis_sewa') == 'reguler')
                                         <td style="text-align: right;">Rp. {{ number_format($lapangan->harga_reguler * count(request('waktu', [])) * config('static.minimum_rent', 2), 0, ',', '.') }}</td>
                                     @else
