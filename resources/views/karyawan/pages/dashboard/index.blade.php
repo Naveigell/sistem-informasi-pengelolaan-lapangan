@@ -18,17 +18,20 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="weather-3 pn centered" style="background: #1895ec;">
-                    <i class="fa fa-map"></i>
-                    <h1>{{ number_format($totalLapangan, 0, '', '.') }}</h1>
+                <div class="weather-3 pn centered" style="background: #1895ec; position: relative;">
+                    <i class="fa fa-bank"></i>
+                    <h1>{{ number_format($totalPembayaran, 0, '', '.') }}</h1>
                     <div class="info">
                         <div class="row">
-                            <h3 class="centered">Lapangan</h3>
+                            <h3 class="centered">Pembayaran</h3>
                             <div class="col-sm-6 col-xs-6 pull-right">
                                 <p class="goright"><i class="fa fa-flag"></i> Total</p>
                             </div>
                         </div>
                     </div>
+                    <a href="{{ route('karyawan.pembayarans.index') }}" class="badge badge-danger" style="top: 10px; right: 10px; position: absolute; font-size: 22px; background: red;">
+                        {{ $totalPembayaranUnread }}
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 mb">

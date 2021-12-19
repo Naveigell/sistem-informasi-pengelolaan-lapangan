@@ -98,7 +98,7 @@ class PemesananController extends Controller
                     }
                 }
 
-                $pemesanan->batas_waktu = Carbon::createFromTime($timeLimit)->addHours(2);
+                $pemesanan->batas_waktu = now()->hour > $timeLimit ? Carbon::createFromTime(now()->hour)->addHours(2) : Carbon::createFromTime($timeLimit)->addHours(2);
                 $pemesanan->save();
             } else { // if jenis sewa is event
                 $sesi = new Sesi([

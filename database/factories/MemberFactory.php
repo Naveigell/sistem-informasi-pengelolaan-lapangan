@@ -23,7 +23,7 @@ class MemberFactory extends Factory
             "alamat_member"     => $this->faker->streetAddress,
             "hp"                => $this->faker->numerify('08##########'),
             "email"             => $this->faker->unique->safeEmail,
-            "password"          => Hash::make(123456),
+            "password"          => 123456,
             "status"            => "aktif"
         ];
     }

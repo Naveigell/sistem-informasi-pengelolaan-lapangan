@@ -18,6 +18,12 @@ class PembayaranController extends Controller
     {
         $pembayarans = Pembayaran::with('pemesanan.member')->latest()->get();
 
+        // update pembayaran read_at every time karyawan access this
+        // page
+        Pembayaran::query()->whereNull('read_at')->update([
+            'read_at' => now()->toDateTime(),
+        ]);
+
         return view('karyawan.pages.pembayaran.index', compact('pembayarans'));
     }
 

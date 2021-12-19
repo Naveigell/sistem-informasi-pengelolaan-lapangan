@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             "jabatan"           => "staff",
             "email"             => "staff@gmail.com",
             "username"          => "staff",
-            "password"          => Hash::make(123456),
+            "password"          => 123456,
             "status"            => "aktif"
         ]);
         $staff->save();
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             "jabatan"           => "pemilik",
             "email"             => "pemilik@gmail.com",
             "username"          => "pemilik",
-            "password"          => Hash::make(123456),
+            "password"          => 123456,
             "status"            => "aktif"
         ]);
         $pemilik->save();
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             "alamat_member"     => "Alamat member",
             "hp"                => "08123135456",
             "email"             => "member@gmail.com",
-            "password"          => Hash::make(123456),
+            "password"          => 123456,
             "status"            => "aktif",
         ]);
         $member->save();

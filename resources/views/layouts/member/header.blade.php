@@ -4,7 +4,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" @if($isDarkMode) style="background: #212529" @endif>
     <div class="container">
-        <a class="navbar-brand" href="#page-top"><img src="{{ asset('img/member/navbar-logo.svg') }}" alt="..." /></a>
+{{--        <a href="#page-top" class="logo" style="text-decoration: none; font-size: 25px;"><b>SIPELA <span>WANGAYA</span></b></a>--}}
+        <a class="navbar-brandd" href="#page-top"><img src="{{ asset('img/logo.png') }}" width="80px" height="80px"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ms-1"></i>

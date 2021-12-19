@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kas;
 use App\Models\Lapangan;
 use App\Models\Member;
+use App\Models\Pembayaran;
 use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
@@ -18,11 +19,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalMember   = Member::count();
-        $totalLapangan = Lapangan::count();
-        $totalKas      = Kas::where('jenis', 'debit')->sum('nilai');
+        $totalMember           = Member::count();
+        $totalLapangan         = Lapangan::count();
+        $totalKas              = Kas::where('jenis', 'debit')->sum('nilai');
+        $totalPembayaran       = Pembayaran::count();
+        $totalPembayaranUnread = Pembayaran::query()->whereNull('read_at')->count();
 
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year)->where('status', 'paid')->get();
+        $pemesanans  = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->whereMonth('tanggal_sewa', now()->month)->whereYear('tanggal_sewa', now()->year)->where('status', 'paid')->get();
 
         $collections = [];
 
@@ -59,7 +62,7 @@ class DashboardController extends Controller
 
         $pemesanans = Pemesanan::with('member')->latest()->take(6)->get();
 
-        return view('karyawan.pages.dashboard.index', compact('lapangans', 'totalKas', 'totalLapangan', 'totalMember', 'pemesanans'));
+        return view('karyawan.pages.dashboard.index', compact('totalKas', 'totalLapangan', 'totalMember', 'totalPembayaran', 'pemesanans', 'lapangans', 'totalPembayaranUnread'));
     }
 
     /**

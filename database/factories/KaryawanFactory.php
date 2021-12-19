@@ -25,7 +25,7 @@ class KaryawanFactory extends Factory
             "jabatan"           => Arr::random(['staff', 'pemilik']),
             "email"             => $this->faker->unique->email,
             "username"          => $this->faker->unique->userName,
-            "password"          => Hash::make(123456),
+            "password"          => 123456,
             "status"            => "aktif"
         ];
     }
