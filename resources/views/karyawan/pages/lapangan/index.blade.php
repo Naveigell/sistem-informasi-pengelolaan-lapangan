@@ -13,9 +13,9 @@
         <div class="row mb">
             <div class="content-panel" style="padding: 20px 20px 60px 20px;">
                 <div class="mt" style="margin-bottom: 30px;">
-{{--                    @unless(auth('karyawan')->user()->jabatan !== 'staff')--}}
+                    @unless(auth('karyawan')->user()->jabatan !== 'staff')
                         <a href="{{ route('karyawan.lapangans.create') }}" class="btn btn-success btn-sm">Tambah</a>
-{{--                    @endunless--}}
+                    @endunless
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
@@ -27,9 +27,9 @@
                             <th class="hidden-phone">Harga reguler (Rp)</th>
                             <th class="hidden-phone">Harga turnamen (Rp)</th>
                             <th class="hidden-phone">Foto</th>
-{{--                            @unless(auth('pengguna')->user()->jabatan !== 'staff')--}}
+                            @unless(auth('karyawan')->user()->jabatan !== 'staff')
                                 <th class="hidden-phone">Aksi</th>
-{{--                            @endunless--}}
+                            @endunless
                         </tr>
                         </thead>
                         <tbody>
@@ -47,10 +47,12 @@
                                         -
                                     @endif
                                 </td>
-                                <td>
-                                    <a href="{{ route('karyawan.lapangans.show', $lapangan) }}" class="btn btn-info btn-sm">Detail</a>
-                                    <a href="{{ route('karyawan.lapangans.edit', $lapangan) }}" class="btn btn-warning btn-sm">Edit</a>
-                                </td>
+                                @unless(auth('karyawan')->user()->jabatan !== 'staff')
+                                    <td>
+                                        <a href="{{ route('karyawan.lapangans.show', $lapangan) }}" class="btn btn-info btn-sm">Detail</a>
+                                        <a href="{{ route('karyawan.lapangans.edit', $lapangan) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    </td>
+                                @endunless
                             </tr>
                         @endforeach
                         </tbody>

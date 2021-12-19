@@ -20,7 +20,9 @@
                             <th class="hidden-phone">Alamat member</th>
                             <th class="hidden-phone">No telepon</th>
                             <th class="hidden-phone">Status</th>
-                            <th class="hidden-phone">Aksi</th>
+                            @if(auth('karyawan')->user()->jabatan === 'staff')
+                                <th class="hidden-phone">Aksi</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -31,10 +33,12 @@
                                 <td>{{ $member->alamat_member }}</td>
                                 <td>{{ $member->hp }}</td>
                                 <td>{{ ucfirst($member->status) }}</td>
-                                <td>
-                                    <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-primary btn-sm">Lihat History</a>
-                                </td>
+                                @if(auth('karyawan')->user()->jabatan === 'staff')
+                                    <td>
+                                        <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        {{--                                    <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-primary btn-sm">Lihat History</a>--}}
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

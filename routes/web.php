@@ -23,6 +23,8 @@ Route::prefix('karyawan')->name('karyawan.')->middleware('should.karyawan')->gro
     Route::resource('pemesanans', \App\Http\Controllers\Karyawan\PemesananController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);
     Route::resource('dashboard', \App\Http\Controllers\Karyawan\DashboardController::class);
+    Route::get('/laporans/print', [\App\Http\Controllers\Karyawan\LaporanController::class, 'print'])->name('laporans.print');
+    Route::resource('laporans', \App\Http\Controllers\Karyawan\LaporanController::class);
 });
 
 Route::resource('/', \App\Http\Controllers\HomeController::class);

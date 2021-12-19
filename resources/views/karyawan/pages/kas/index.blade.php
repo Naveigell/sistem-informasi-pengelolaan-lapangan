@@ -32,10 +32,9 @@ $saldo = 0;
                 <br>
                 <br>
                 <div class="mt" style="margin-bottom: 30px;">
-{{--                    @if(auth('pengguna')->user()->jabatan === 'staff')--}}
+                    @if(auth('karyawan')->user()->jabatan === 'staff')
                         <a href="{{ route('karyawan.kas.create') }}" class="btn btn-success btn-sm">Tambah</a>
-{{--                    @endif--}}
-                    <a href="{{ route('karyawan.kas.print', ['from' => request()->get('from'), 'to' => request()->get('to')]) }}" class="btn btn-success btn-sm">Download .xls</a>
+                    @endif
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
@@ -48,9 +47,9 @@ $saldo = 0;
                             <th class="hidden-phone">Kredit (Rp)</th>
                             <th class="hidden-phone">Saldo (Rp)</th>
                             <th class="hidden-phone">Penanggung Jawab</th>
-{{--                            @if(auth('pengguna')->user()->jabatan === 'staff')--}}
+                            @if(auth('karyawan')->user()->jabatan === 'staff')
                                 <th class="hidden-phone">Aksi</th>
-{{--                            @endif--}}
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -63,11 +62,11 @@ $saldo = 0;
                                 <td style="text-align: right;">Rp &nbsp; {{ number_format($ka->jenis === 'kredit' ? $ka->nilai : 0, 0, '', '.') }}</td>
                                 <td style="text-align: right;">Rp &nbsp; {{ number_format($saldo += $ka->jenis === 'debit' ? $ka->nilai : -$ka->nilai, 0, '', '.') }}</td>
                                 <td>{{ $ka->karyawan->nama_pengguna }}</td>
-{{--                                @if(auth('pengguna')->user()->jabatan === 'staff')--}}
+                                @if(auth('karyawan')->user()->jabatan === 'staff')
                                     <td>
                                         <a href="{{ route('karyawan.kas.edit', $ka) }}" class="btn btn-warning btn-sm">Edit</a>
                                     </td>
-{{--                                @endif--}}
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

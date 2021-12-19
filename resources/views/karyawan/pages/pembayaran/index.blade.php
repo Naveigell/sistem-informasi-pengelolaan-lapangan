@@ -21,7 +21,9 @@
                             <th class="hidden-phone">Bukti transaksi</th>
                             <th class="hidden-phone">Nama Member</th>
                             <th class="hidden-phone">Status</th>
-                            <th class="hidden-phone">Aksi</th>
+                            @if(auth('karyawan')->user()->jabatan === 'staff')
+                                <th class="hidden-phone">Aksi</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -39,12 +41,14 @@
                                 @endif
                                 <td>{{ $pembayaran->pemesanan->member->nama_member ?? '-' }}</td>
                                 <td>{{ !$pembayaran->status ? 'Belum terkonfirmasi' : ucfirst($pembayaran->status) }}</td>
-                                <td>
-                                    @unless ($pembayaran->status === 'valid')
-                                        <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    @endunless
-                                    <a href="{{ route('karyawan.pembayarans.show', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
-                                </td>
+                                @if(auth('karyawan')->user()->jabatan === 'staff')
+                                    <td>
+                                        @unless ($pembayaran->status === 'valid')
+                                            <a href="{{ route('karyawan.pembayarans.edit', $pembayaran) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        @endunless
+                                        <a href="{{ route('karyawan.pembayarans.show', $pembayaran) }}" class="btn btn-primary btn-sm">Detail</a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
