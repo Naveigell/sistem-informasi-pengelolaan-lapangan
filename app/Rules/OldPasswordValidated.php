@@ -45,6 +45,6 @@ class OldPasswordValidated implements Rule
      */
     public function message()
     {
-        return 'Old password wrong';
+        return 'Password lama salah';
     }
 }

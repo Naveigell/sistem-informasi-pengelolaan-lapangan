@@ -50,6 +50,6 @@ class HasSamePhoneNumber implements Rule
      */
     public function message()
     {
-        return 'Phone number already used.';
+        return 'Nomor telepon sudah digunakan';
     }
 }

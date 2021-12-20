@@ -88,7 +88,7 @@ class PembayaranController extends Controller
             "status" => $request->get('status'),
         ]);
 
-        return redirect(route('karyawan.pembayarans.index'));
+        return redirect(route('karyawan.pembayarans.index'))->with('success', 'Pembayaran berhasil diubah');
     }
 
     /**

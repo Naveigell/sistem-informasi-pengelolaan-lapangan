@@ -10,7 +10,7 @@ $saldo = 0;
         <div class="row mb">
             <div class="content-panel" style="padding: 30px;">
                 @php
-                    $validated = in_array(request()->get('type'), ['kas', 'pembayaran']) && request()->filled('from') && request()->filled('to');
+                    $validated = in_array(request()->get('type'), ['kas', 'pemesanan']) && request()->filled('from') && request()->filled('to');
                 @endphp
                 <div class="row">
                     <form action="{{ route('karyawan.laporans.index') }}" class="col-lg-10">
@@ -20,7 +20,7 @@ $saldo = 0;
                                 <select name="type" id="" class="form-control">
                                     <option value="">--- Nothing Selected ---</option>
                                     <option {{ request()->get('type') === 'kas' ? 'selected' : '' }} value="kas">Kas</option>
-                                    <option {{ request()->get('type') === 'pembayaran' ? 'selected' : '' }} value="pembayaran">Pembayaran</option>
+                                    <option {{ request()->get('type') === 'pemesanan' ? 'selected' : '' }} value="pemesanan">Pemesanan</option>
                                 </select>
                             </div>
                             <div class="form-group col-lg-3">
@@ -45,7 +45,7 @@ $saldo = 0;
                             </div>
                             <select name="type" id="" hidden readonly>
                                 <option {{ request()->get('type') === 'kas' ? 'selected' : '' }} value="kas">Kas</option>
-                                <option {{ request()->get('type') === 'pembayaran' ? 'selected' : '' }} value="pembayaran">Pembayaran</option>
+                                <option {{ request()->get('type') === 'pemesanan' ? 'selected' : '' }} value="pemesanan">Pemesanan</option>
                             </select>
                             <input type="date" hidden readonly name="from" value="{{ request()->get('from') }}">
                             <input type="date" hidden readonly name="to" value="{{ request()->get('to') }}">
@@ -76,7 +76,7 @@ $saldo = 0;
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($kas as $ka)
+                                @forelse($kas as $ka)
                                     <tr class="gradeX">
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $ka->tanggal_transaksi }}</td>
@@ -86,7 +86,11 @@ $saldo = 0;
                                         <td style="text-align: right;">Rp &nbsp; {{ number_format($saldo += $ka->jenis === 'debit' ? $ka->nilai : -$ka->nilai, 0, '', '.') }}</td>
                                         <td style="text-align: right;">{{ $ka->karyawan->nama_pengguna }}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">Data Kosong</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -95,7 +99,7 @@ $saldo = 0;
         </div>
     @endif
 
-    @if(request('type') === 'pembayaran')
+    @if(request('type') === 'pemesanan')
         <div style="margin: 0 20px 20px 20px; padding: 10px;">
             <div class="row mb">
                 <div class="content-panel" style="padding: 30px;">
@@ -104,28 +108,28 @@ $saldo = 0;
                             <thead>
                             <tr>
                                 <th class="hidden-phone" aria-sort="ascending">No</th>
-                                <th class="hidden-phone">Tanggal Pembayaran</th>
-                                <th class="hidden-phone">Total Pembayaran</th>
-                                <th class="hidden-phone">Bank Tujuan</th>
-                                <th class="hidden-phone">Bank Pengirim</th>
-                                <th class="hidden-phone">Nomor Rekening Pengirim</th>
-                                <th class="hidden-phone">Atas Nama Pengirim</th>
-                                <th class="hidden-phone">Status</th>
+                                <th class="hidden-phone">Nama Member</th>
+                                <th class="hidden-phone">Tanggal Sewa</th>
+                                <th class="hidden-phone">Jenis Sewa</th>
+                                <th class="hidden-phone">Total Pembayaran (Rp)</th>
+                                <th class="hidden-phone">Total Durasi</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($pembayarans as $pembayaran)
+                            @forelse($pemesanans as $pemesanan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pembayaran->tanggal_pembayaran }}</td>
-                                    <td style="text-align: right;">Rp. {{ number_format($pembayaran->pemesanan->total_harga, 0, ',', '.') }}</td>
-                                    <td>{{ $pembayaran->bank_tujuan }}</td>
-                                    <td>{{ $pembayaran->bank_pengirim }}</td>
-                                    <td>{{ $pembayaran->nomor_rekening_pengirim }}</td>
-                                    <td>{{ $pembayaran->atas_nama_pengirim }}</td>
-                                    <td>{{ ucfirst($pembayaran->status) }}</td>
+                                    <td>{{ $pemesanan->member->nama_member }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                    <td>{{ ucfirst($pemesanan->jenis_sewa) }}</td>
+                                    <td style="text-align: right;">Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
+                                    <td>{{ $pemesanan->jenis_sewa === 'reguler' ? $pemesanan->total_durasi . ' jam' : '-' }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Data Kosong</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>

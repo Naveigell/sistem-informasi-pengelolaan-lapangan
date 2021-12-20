@@ -17,4 +17,8 @@
     table thead tr th {
         text-align: center;
     }
+
+    .default-list ul li, .default-list ul {
+        list-style-type: disc;
+    }
 </style>

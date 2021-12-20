@@ -40,6 +40,6 @@ class PreventBookingRule implements Rule
      */
     public function message()
     {
-        return 'The field has been booked';
+        return 'Lapangan sudah dibooking oleh orang lain';
     }
 }

@@ -48,7 +48,17 @@
         <form action="{{ route('member.pemesanans.confirm', $lapangan) }}" method="post">
             @csrf
             <div class="container">
-                <div class="text-center">
+                <div class="">
+                    <h2 class="section-heading text-uppercase text-center">Deskripsi Lapangan</h2>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                <span style="">{!! $lapangan->deskripsi_lapangan !!}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
                     <h2 class="section-heading text-uppercase">Jadwal</h2>
                     <div class="form-group">
                         <div class="row">
@@ -86,6 +96,11 @@
                         <div class="col-md-1"></div>
                     </div>
                 @endunless
+                @if($isEvent)
+                    <div class="mt-4 alert-danger alert">
+                        Telah dibooking untuk event
+                    </div>
+                @endif
                 <div class="row mt-5" id="time">
                     <div class="col-md-1"></div>
                     <div class="col-md-12 text-left">

@@ -29,9 +29,14 @@ class Pemesanan extends Model
         return $this->hasMany(Pembayaran::class);
     }
 
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class);
+    }
+
     public function latestPembayaran()
     {
-        return $this->hasOne(Pembayaran::class, 'pemesanan_id')->where('status', Pembayaran::VALID)->latest();
+        return $this->hasOne(Pembayaran::class, 'pemesanan_id')->latest();
     }
 
     public function member()

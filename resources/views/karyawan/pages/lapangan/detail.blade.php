@@ -24,8 +24,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Deskripsi lapangan</label>
-                        <div class="col-sm-10">
-                            : {{ $lapangan->deskripsi_lapangan }}
+                        <div class="col-sm-10 default-list">
+                             : {!! $lapangan->deskripsi_lapangan !!}
                         </div>
                     </div>
                     <div class="form-group">

@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Deskripsi lapangan</label>
                         <div class="col-sm-10">
-                            <textarea name="deskripsi_lapangan" id="" cols="30" rows="10" class="form-control">{{ old('deskripsi_lapangan') }}</textarea>
+                            <textarea name="deskripsi_lapangan" id="description" cols="30" rows="10" class="form-control">{{ old('deskripsi_lapangan') }}</textarea>
                             <span class="help-block">Masukkan deskripsi lapangan. Cth: Lapangan B biasa digunakan oleh ...</span>
                         </div>
                     </div>
@@ -65,4 +65,11 @@
         </div>
         <!-- col-lg-12-->
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('description');
+    </script>
 @endsection

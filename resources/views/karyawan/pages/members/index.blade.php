@@ -11,6 +11,11 @@
         <h3><i class="fa fa-angle-right"></i> Tabel Data Member</h3>
         <div class="row mb">
             <div class="content-panel" style="padding: 20px 20px 60px 20px;">
+                @if(session()->has('success'))
+                    <br>
+                    <br>
+                    <x-alert :title="session()->get('success')"></x-alert>
+                @endif
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                         <thead>

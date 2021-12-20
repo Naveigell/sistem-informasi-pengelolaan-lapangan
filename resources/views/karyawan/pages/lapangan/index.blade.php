@@ -16,6 +16,12 @@
                     @unless(auth('karyawan')->user()->jabatan !== 'staff')
                         <a href="{{ route('karyawan.lapangans.create') }}" class="btn btn-success btn-sm">Tambah</a>
                     @endunless
+
+                    @if(session()->has('success'))
+                        <br>
+                        <br>
+                        <x-alert :title="session()->get('success')"></x-alert>
+                    @endif
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
@@ -37,7 +43,7 @@
                             <tr class="gradeX">
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $lapangan->nama_lapangan }}</td>
-                                <td>{{ $lapangan->deskripsi_lapangan }}</td>
+                                <td class="default-list" style="max-width: 300px;">{!! $lapangan->deskripsi_lapangan !!}</td>
                                 <td style="text-align: right;">Rp &nbsp; {{ number_format($lapangan->harga_reguler, 0, '', '.') }}</td>
                                 <td style="text-align: right;">Rp &nbsp; {{ number_format($lapangan->harga_turnamen, 0, '', '.') }}</td>
                                 <td>

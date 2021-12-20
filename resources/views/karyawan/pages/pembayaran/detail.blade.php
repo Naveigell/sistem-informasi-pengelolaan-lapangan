@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Nomor Rekening Pengirim</label>
                         <div class="col-sm-10">
                             : {{ $pembayaran->nomor_rekening_pengirim }}
                         </div>
@@ -35,11 +35,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
                         <div class="col-sm-10">
-                            : {{ $pembayaran->bank_tujuan }}
+                            : {{ strtoupper($pembayaran->bank_tujuan) }}. No Rek : {{ config('static.bank')[$pembayaran->bank_tujuan] }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Bank Tujuan</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Bank Pengirim</label>
                         <div class="col-sm-10">
                             : {{ $pembayaran->bank_pengirim }}
                         </div>

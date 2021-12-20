@@ -35,6 +35,11 @@ $saldo = 0;
                     @if(auth('karyawan')->user()->jabatan === 'staff')
                         <a href="{{ route('karyawan.kas.create') }}" class="btn btn-success btn-sm">Tambah</a>
                     @endif
+                    @if(session()->has('success'))
+                        <br>
+                        <br>
+                        <x-alert :title="session()->get('success')"></x-alert>
+                    @endif
                 </div>
                 <div class="adv-table">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
