@@ -45,7 +45,11 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-4">Durasi</div>
-                            <div class="col-8">: &nbsp; {{ $pemesanan->total_durasi }} Jam</div>
+                            <div class="col-8">: &nbsp; {{ $pemesanan->jenis_sewa === 'reguler' ? $pemesanan->total_durasi . ' Jam' : '-' }} </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-4">Nomor Lapangan</div>
+                            <div class="col-8">: &nbsp; {{ $pemesanan->sesiPemesanan[0]->sesi->lapangan->nama_lapangan }} </div>
                         </div>
                     </div>
                 </div>
@@ -73,7 +77,13 @@
                                                 @endif
                                             </td>
                                             <td>{{ $pemesanan->jenis_sewa }}</td>
-                                            <td style="text-align: right;">Rp. {{ number_format($sesiPemesanan->sesi->lapangan->harga_reguler * config('static.minimum_rent'), 0, ',', '.') }}</td>
+                                            <td style="text-align: right;">
+                                                @if($pemesanan->jenis_sewa === 'reguler')
+                                                    Rp. {{ number_format($sesiPemesanan->sesi->lapangan->harga_reguler * config('static.minimum_rent'), 0, ',', '.') }}
+                                                @else
+                                                    Rp. {{ number_format($sesiPemesanan->sesi->lapangan->harga_turnamen, 0, ',', '.') }}
+                                                @endif
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -93,9 +103,9 @@
                     <div class="col-6">
                         <div class="row mt-1">
                             <div class="col-4 font-weight-bold">Status</div>
-                            <div class="col-8 font-weight-bold">: &nbsp; {{ ucfirst($pemesanan->status) }}</div>
+                            <div class="col-8 font-weight-bold">: &nbsp; {{ ucfirst(optional($pemesanan->latestPembayaran)->status) }}</div>
                         </div>
-                        @if(in_array($pemesanan->status, ['open']))
+                        @if(in_array(optional($pemesanan->latestPembayaran)->status, ['invalid']))
                             <div class="row mt-1">
                                 <span class="text text-danger col-12">Silahkan melakukan konfirmasi pembayaran</span>
                             </div>

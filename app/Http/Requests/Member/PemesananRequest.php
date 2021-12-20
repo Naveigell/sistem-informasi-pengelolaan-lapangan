@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Member;
 
+use App\Models\Pemesanan;
 use App\Traits\Request\HasTimeRules;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,6 +11,11 @@ use Illuminate\Validation\ValidationException;
 class PemesananRequest extends FormRequest
 {
     use HasTimeRules;
+
+    public function authorize()
+    {
+        return Pemesanan::query()->where('member_id', auth('member')->id())->where('status', 'open')->count() <= 0;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -50,7 +56,7 @@ class PemesananRequest extends FormRequest
     public function messages()
     {
         return [
-            "accept.required" => "You must accept the agreement"
+            "accept.required" => "Persetujuan harus dicentang"
         ];
     }
 
