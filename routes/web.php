@@ -19,6 +19,7 @@ Route::prefix('karyawan')->name('karyawan.')->middleware('should.karyawan')->gro
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);
     Route::resource('jadwals', \App\Http\Controllers\Karyawan\JadwalController::class)->except(['show']);
     Route::get('/jadwals/{pemesanan}/lapangan/{lapangan}/sesi/{sesi}', [\App\Http\Controllers\Karyawan\JadwalController::class, 'show'])->name('jadwals.show');
+    Route::get('members/{member}/history', [\App\Http\Controllers\Karyawan\MemberController::class, 'history'])->name('members.history');
     Route::resource('members', \App\Http\Controllers\Karyawan\MemberController::class);
     Route::resource('pemesanans', \App\Http\Controllers\Karyawan\PemesananController::class);
     Route::resource('pembayarans', \App\Http\Controllers\Karyawan\PembayaranController::class);

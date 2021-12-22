@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Karyawan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Karyawan\MemberRequest;
 use App\Models\Member;
+use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -19,6 +20,13 @@ class MemberController extends Controller
         $members = Member::query()->latest()->get();
 
         return view('karyawan.pages.members.index', compact('members'));
+    }
+
+    public function history(Member $member)
+    {
+        $pemesanans = Pemesanan::with('latestPembayaran', 'sesiPemesanan.sesi.lapangan', 'member')->where('status', 'paid')->where('member_id', $member->id)->get();
+
+        return view('karyawan.pages.members.history', compact('member', 'pemesanans'));
     }
 
     /**

@@ -59,6 +59,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label"></label>
                         <div class="col-sm-10">
+                            <a href="{{ route('karyawan.lapangans.index') }}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> &nbsp; Kembali</a>
+                            &nbsp;
                             <button type="submit" class="btn btn-theme">Simpan</button>
                         </div>
                     </div>

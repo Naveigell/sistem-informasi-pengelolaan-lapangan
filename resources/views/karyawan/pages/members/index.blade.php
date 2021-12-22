@@ -41,7 +41,7 @@
                                 @if(auth('karyawan')->user()->jabatan === 'staff')
                                     <td>
                                         <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        {{--                                    <a href="{{ route('karyawan.members.edit', $member) }}" class="btn btn-primary btn-sm">Lihat History</a>--}}
+                                        <a href="{{ route('karyawan.members.history', $member) }}" class="btn btn-info btn-sm">Lihat History</a>
                                     </td>
                                 @endif
                             </tr>

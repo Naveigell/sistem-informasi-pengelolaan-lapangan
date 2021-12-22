@@ -182,7 +182,7 @@
                                 @php
                                     $no = 0;
                                 @endphp
-                                @foreach($pemesanans as $pemesanan)
+                                @forelse($pemesanans as $pemesanan)
                                     @foreach($pemesanan->sesiPemesanan as $sesiPemesanan)
                                         <tr class="gradeX">
                                             <td>{{ ++$no }}</td>
@@ -197,7 +197,11 @@
                                             @endif
                                         </tr>
                                     @endforeach
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center">Data Empty</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>

@@ -26,7 +26,7 @@ class LapanganFactory extends Factory
         return [
             "nama_lapangan"      => "Lapangan " . self::$increment ++,
             "deskripsi_lapangan" => $this->faker->text,
-            "harga_reguler"      => 60000,
+            "harga_reguler"      => 30000,
             "harga_turnamen"     => 100000,
             "foto"               => $this->faker->image(storage_path('app/public/images/lapangan'), 640, 640, null, false),
             "status"             => "aktif"

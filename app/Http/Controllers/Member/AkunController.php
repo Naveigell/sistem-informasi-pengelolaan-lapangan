@@ -18,7 +18,7 @@ class AkunController extends Controller
      */
     public function index()
     {
-        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->where('member_id', auth('member')->id())->get();
+        $pemesanans = Pemesanan::with('sesiPemesanan.sesi.lapangan', 'member')->where('status', 'paid')->where('member_id', auth('member')->id())->get();
 
         return view('member.akun.index', compact('pemesanans'));
     }
