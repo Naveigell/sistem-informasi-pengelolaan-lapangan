@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\Karyawan;
 
-use App\Models\Member;
+use App\Models\Karyawan;
 use Illuminate\Contracts\Validation\Rule;
 
 class OldPasswordValidated implements Rule
@@ -28,14 +28,14 @@ class OldPasswordValidated implements Rule
      */
     public function passes($attribute, $value)
     {
-        $member = Member::query()->find(auth('member')->id());
+        $karyawan = Karyawan::query()->find(auth('karyawan')->id());
 
-        // if member not login
-        if (!$member) {
+        // if karyawan not login
+        if (!$karyawan) {
             return false;
         }
 
-        return \Hash::check($this->password, $member->password);
+        return \Hash::check($this->password, $karyawan->password);
     }
 
     /**

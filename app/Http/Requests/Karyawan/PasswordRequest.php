@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Member;
+namespace App\Http\Requests\Karyawan;
 
-use App\Rules\Member\OldPasswordValidated;
+use App\Rules\Karyawan\OldPasswordValidated;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordRequest extends FormRequest

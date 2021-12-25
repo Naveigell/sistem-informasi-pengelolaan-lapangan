@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\Karyawan;
 
+use App\Models\Karyawan;
 use App\Models\Member;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -28,7 +29,7 @@ class HasSameEmail implements Rule
      */
     public function passes($attribute, $value)
     {
-        $member = Member::query()->where('email', $this->email)->first();
+        $member = Karyawan::query()->where('email', $this->email)->first();
 
         // if email is not exists
         if (!$member) {
@@ -36,7 +37,7 @@ class HasSameEmail implements Rule
         }
 
         // if email of logged in member is same as what we get from database
-        if (auth('member')->user()->email === $member->email) {
+        if (auth('karyawan')->user()->email === $member->email) {
             return true;
         }
 

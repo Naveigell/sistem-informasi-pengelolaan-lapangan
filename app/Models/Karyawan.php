@@ -9,6 +9,10 @@ class Karyawan extends Authenticatable
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nama_pengguna', 'alamat', 'no_telp', 'email', 'password', 'username'
+    ];
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::make($value);

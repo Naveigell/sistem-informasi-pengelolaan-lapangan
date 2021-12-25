@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('karyawan')->name('karyawan.')->middleware('should.karyawan')->group(function () {
+    Route::resource('akuns', \App\Http\Controllers\Karyawan\AkunController::class);
+    Route::put('/akuns/{akun}/password', [\App\Http\Controllers\Karyawan\AkunController::class, 'updatePassword'])->name('akuns.update.password');
     Route::resource('lapangans', \App\Http\Controllers\Karyawan\LapanganController::class);
     Route::get('/kas/print', [\App\Http\Controllers\Karyawan\KasController::class, 'print'])->name('kas.print');
     Route::resource('kas', \App\Http\Controllers\Karyawan\KasController::class);

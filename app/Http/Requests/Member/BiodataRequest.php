@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Member;
 
-use App\Rules\HasSameEmail;
-use App\Rules\HasSamePhoneNumber;
+use App\Rules\Member\HasSameEmail;
+use App\Rules\Member\HasSamePhoneNumber;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 

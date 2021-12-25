@@ -66,6 +66,12 @@
                     </a>
                 </li>
             @endif
+            <li class="">
+                <a href="{{ route('karyawan.akuns.index') }}" class="{{ request()->is('*akun*') ? 'active' : '' }}">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Akun</span>
+                </a>
+            </li>
 {{--            <li class="mt">--}}
 {{--                <a href="{{ route('admin.dashboard.index') }}" class="{{ request()->is('*dashboard*') ? 'active' : '' }}">--}}
 {{--                    <i class="fa fa-dashboard"></i>--}}
