@@ -113,11 +113,30 @@
                                             {{ $i }}.00 - {{ $i + 2 }}.00
                                         </div>
                                         <div class="card-body">
-                                            @if(!hasBooked($i, $pemesanans))
+                                            @php
+                                                $booked = hasBooked($i, $pemesanans);
+
+                                                $inTheMiddleOfTime      = now()->hour >= $i && now()->hour <= $i + 2;
+                                                $lessThanCurrentTime    = $i + 2 < now()->hour;
+                                                $greaterThanCurrentTime = $i + 2 > now()->hour;
+
+                                                $isValidTime = $greaterThanCurrentTime && !$inTheMiddleOfTime &&
+                                                               (
+                                                                   request()->query('date') == date('Y-m-d') ||
+                                                                   request()->query('date') != date('Y-m-d')
+                                                               );
+                                            @endphp
+
+                                            @if(!$booked && $isValidTime)
                                                 <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
                                                 <label for="time-{{ $i }}">Pilih</label>
-                                            @else
+                                            @elseif((($lessThanCurrentTime || $inTheMiddleOfTime) && request()->query('date') == date('Y-m-d')))
+                                                <label>Waktu sudah lewat!</label>
+                                            @elseif($booked)
                                                 <label>Penuh!</label>
+                                            @else
+                                                <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
+                                                <label for="time-{{ $i }}">Pilih</label>
                                             @endif
                                         </div>
                                     </div>

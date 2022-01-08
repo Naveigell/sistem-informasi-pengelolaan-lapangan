@@ -51,7 +51,6 @@ class PemesananController extends Controller
     public function store(PemesananRequest $request)
     {
         $duration  = 0;
-        $timeLimit = 0;
 
         \DB::beginTransaction();
         try {
@@ -71,7 +70,7 @@ class PemesananController extends Controller
 
             // if jenis sewa is reguler
             if (array_key_exists('waktu', $request->validated())) {
-                foreach ($request->validated()['waktu'] as $time) {
+                foreach ($request->validated()['waktu'] as $index => $time) {
                     $sesi = new Sesi([
                         "lapangan_id" => $request->get('id'),
                         "nama_sesi"   => \Str::random(15),
@@ -89,16 +88,20 @@ class PemesananController extends Controller
 
                     $duration += 2;
 
-                    // if time plus 2 is greater than time limit,
-                    // set time limit into time plus 2,
-                    // (find the greates number) for set time limit
-                    // in database
-                    if ($time + 2 > $timeLimit) {
-                        $timeLimit = $time + 2;
+                    // if we are in the first time, create time limit
+                    // from it and add 4 hour into it
+                    if ($index == 0) {
+                        $timeLimit = $time + 4;
+
+                        if ($pemesanan->tanggal_sewa == date('Y-m-d')) {
+
+                            $pemesanan->batas_waktu = Carbon::createFromTime($timeLimit);
+                        } else {
+                            $pemesanan->batas_waktu = Carbon::parse($pemesanan->tanggal_sewa)->setHour($timeLimit);
+                        }
                     }
                 }
 
-                $pemesanan->batas_waktu = now()->hour > $timeLimit ? Carbon::createFromTime(now()->hour)->addHours(2) : Carbon::createFromTime($timeLimit)->addHours(2);
                 $pemesanan->save();
             } else { // if jenis sewa is event
                 $sesi = new Sesi([
