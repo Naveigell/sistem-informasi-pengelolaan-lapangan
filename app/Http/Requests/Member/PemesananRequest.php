@@ -33,7 +33,7 @@ class PemesananRequest extends FormRequest
         ];
 
         if ($this->get('jenis_sewa') == 'reguler') {
-            $rules['waktu']   = ["required", "array", /** new BookingTimeLessThanCurrentHour($this->get('waktu'), $this->get('tanggal')) */];
+            $rules['waktu']   = ["required", "array", new BookingTimeLessThanCurrentHour($this->get('waktu'), $this->get('tanggal'))];
             $rules['waktu.*'] = "integer|in:8,10,12,14,16,18";
         }
 
