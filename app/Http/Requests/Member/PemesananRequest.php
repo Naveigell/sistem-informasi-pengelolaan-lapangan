@@ -15,7 +15,7 @@ class PemesananRequest extends FormRequest
 
     public function authorize()
     {
-        return Pemesanan::query()->where('member_id', auth('member')->id())->where('status', 'open')->count() <= 0;
+        return Pemesanan::query()->where('member_id', auth('member')->id())->whereIn('status', [Pemesanan::STATUS_PAID])->count() <= 0;
     }
 
     /**
@@ -26,14 +26,14 @@ class PemesananRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
-            "id"         => "required|min:1",
-            "jenis_sewa" => "required|in:event,reguler",
-            "accept"     => "required",
+//            "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
+//            "id"         => "required|min:1",
+//            "jenis_sewa" => "required|in:event,reguler",
+//            "accept"     => "required",
         ];
 
         if ($this->get('jenis_sewa') == 'reguler') {
-            $rules['waktu']   = ["required", "array", new BookingTimeLessThanCurrentHour($this->get('waktu'), $this->get('tanggal'))];
+            $rules['waktu']   = ["required", "array", /** new BookingTimeLessThanCurrentHour($this->get('waktu'), $this->get('tanggal')) */];
             $rules['waktu.*'] = "integer|in:8,10,12,14,16,18";
         }
 

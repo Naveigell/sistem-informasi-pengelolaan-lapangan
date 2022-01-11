@@ -15,6 +15,10 @@ class Pemesanan extends Model
 {
     use HasFactory;
 
+    const STATUS_CANCEL = 'cancel';
+    const STATUS_PAID   = 'paid';
+    const STATUS_OPEN   = 'open';
+
     protected $fillable = [
         "karyawan_id", "lapangan_id", "member_id", "tanggal_sewa", "jenis_sewa",
         "total_harga", "batas_waktu", "status", "total_durasi",

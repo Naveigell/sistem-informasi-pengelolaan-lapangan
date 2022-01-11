@@ -53,7 +53,7 @@ class LapanganController extends Controller
         $pemesanans = null;
 
         if ($request->has('date')) {
-            $pemesanans = Pemesanan::with('sesiPemesanan.sesi')->whereHas('sesiPemesanan.sesi', function($query) use ($lapangan) {
+            $pemesanans = Pemesanan::with('sesiPemesanan.sesi')->whereNotIn('status', [Pemesanan::STATUS_PAID])->whereHas('sesiPemesanan.sesi', function($query) use ($lapangan) {
                 $query->where('lapangan_id', $lapangan->id);
             })->whereDate('tanggal_sewa', $request->query('date'))->get();
         }

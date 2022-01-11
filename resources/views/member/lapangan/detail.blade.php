@@ -31,7 +31,7 @@
         }
 
         $isEvent = isset($pemesanans) && $pemesanans->filter(function ($item) {
-            return $item->jenis_sewa === 'event';
+            return $item->jenis_sewa === 'event' && in_array($item->status, [\App\Models\Pemesanan::STATUS_PAID]);
         })->count() > 0;
     ?>
     <!-- Masthead-->

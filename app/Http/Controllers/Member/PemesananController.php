@@ -88,16 +88,14 @@ class PemesananController extends Controller
 
                     $duration += 2;
 
-                    // if we are in the first time, create time limit
-                    // from it and add 4 hour into it
+                    // if we are in the first session and booking date is today, set time limit to -1.45 hour
+                    // if booking date is not today, set time limit tomorrow minus 1.45 hour
                     if ($index == 0) {
-                        $timeLimit = $time + 4;
-
                         if ($pemesanan->tanggal_sewa == date('Y-m-d')) {
 
-                            $pemesanan->batas_waktu = Carbon::createFromTime($timeLimit);
+                            $pemesanan->batas_waktu = Carbon::createFromTime($time - 1)->setMinute(45)->toDateTimeString();
                         } else {
-                            $pemesanan->batas_waktu = Carbon::parse($pemesanan->tanggal_sewa)->setHour($timeLimit);
+                            $pemesanan->batas_waktu = Carbon::parse($pemesanan->tanggal_sewa)->setHour($time - 1)->setMinute(45)->toDateTimeString();
                         }
                     }
                 }
@@ -118,6 +116,14 @@ class PemesananController extends Controller
                     "created_at"   => now()->toDateTimeString(),
                     "updated_at"   => now()->toDateTimeString(),
                 ];
+
+                if ($pemesanan->tanggal_sewa == date('Y-m-d')) {
+                    $pemesanan->batas_waktu = now()->addHour()->toDateTimeString();
+                } else {
+                    $pemesanan->batas_waktu = now()->addDay()->setHour(7)->setMinute(0)->toDateTimeString();
+                }
+
+                $pemesanan->save();
             }
 
             SesiPemesanan::query()->insert($times);
