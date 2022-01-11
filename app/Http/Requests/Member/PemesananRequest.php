@@ -26,10 +26,10 @@ class PemesananRequest extends FormRequest
     public function rules()
     {
         $rules = [
-//            "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
-//            "id"         => "required|min:1",
-//            "jenis_sewa" => "required|in:event,reguler",
-//            "accept"     => "required",
+            "tanggal"    => "required|date_format:Y-m-d|date|after_or_equal:" . date('Y-m-d'),
+            "id"         => "required|min:1",
+            "jenis_sewa" => "required|in:event,reguler",
+            "accept"     => "required",
         ];
 
         if ($this->get('jenis_sewa') == 'reguler') {
