@@ -52,7 +52,7 @@
     </div>
     <div class="container">
         <div class="content-panel" style="padding: 30px;">
-            <h3>Grafik penggunaan lapangan bulan ini • <b>(Paid)</b></h3>
+            <h3>Grafik penggunaan lapangan bulan {{ date('F Y') }} • <b>(Paid)</b></h3>
             <canvas id="graph" class="chart-canvas"></canvas>
         </div>
     </div>

@@ -28,21 +28,30 @@ class KasExcelExports implements FromCollection, ShouldAutoSize
             $query->whereBetween('tanggal_transaksi', [$this->from, $this->to]);
         }
 
-        $kas = $query->get();
+        $kas    = $query->get();
         $items  = [];
+        $total  = 0;
 
         foreach ($kas as $index => $ka) {
-            $items[] = array_values($this->transform($index, $ka));
+            $items[] = array_values($this->transform($index, $ka, $total));
         }
 
         return new Collection([
             ["No", "Tanggal", "Nama Staff", "Jenis", "Nominal", "Keterangan"],
-            $items
+            $items,
+            ["", "", "", "", "", ""],
+            ["Total", "", "", "", "", 'Rp. ' . number_format($total, 0, ',', '.')]
         ]);
     }
 
-    public function transform(int $number, Kas $kas)
+    public function transform(int $number, Kas $kas, &$total)
     {
+        if ($kas->jenis === 'debit') {
+            $total += $kas->nilai;
+        } else {
+            $total -= $kas->nilai;
+        }
+
         return [
             "no"         => $number + 1,
             "tanggal"    => $kas->tanggal_transaksi,

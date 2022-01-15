@@ -24,9 +24,9 @@ class JadwalController extends Controller
             $filter = $request->get('filter');
 
             if ($filter === 'akan-berlangsung') {
-                $query->whereDate('tanggal_sewa', '>', now()->toDateString());
+                $query->whereDate('tanggal_sewa', '>=', now()->toDateString());
             } elseif ($filter === 'selesai') {
-                $query->whereDate('tanggal_sewa', '<', now()->toDateString());
+                $query->whereDate('tanggal_sewa', '<=', now()->toDateString());
             }
         }
 

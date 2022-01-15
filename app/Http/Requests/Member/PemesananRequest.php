@@ -13,11 +13,6 @@ class PemesananRequest extends FormRequest
 {
     use HasTimeRules;
 
-    public function authorize()
-    {
-        return Pemesanan::query()->where('member_id', auth('member')->id())->whereIn('status', [Pemesanan::STATUS_PAID])->count() <= 0;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

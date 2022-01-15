@@ -23,13 +23,13 @@ class AuthKaryawanController extends Controller
 
         if (!$user) {
             return back()->withErrors([
-                "email" => __('auth.failed', '', 'id')
+                "email" => __('auth.failed', [], 'id')
             ])->withInput();
         }
 
         if ($user->username !== $request->username) {
             return back()->withErrors([
-                "username" => __('auth.username', '', 'id')
+                "username" => __('auth.username', [], 'id')
             ])->withInput();
         }
 

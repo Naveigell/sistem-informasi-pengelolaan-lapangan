@@ -18,6 +18,11 @@
             }
 
             $filtered = $pemesanans->filter(function ($item) use ($hour) {
+
+//                if (in_array($item->status, [\App\Models\Pemesanan::STATUS_CANCEL])) {
+//                    return false;
+//                }
+
                 return $item->sesiPemesanan->filter(function ($item) use ($hour) {
                     if (!$item->sesi) {
                         return false;

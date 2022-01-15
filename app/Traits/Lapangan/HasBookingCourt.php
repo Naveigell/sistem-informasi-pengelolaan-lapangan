@@ -17,10 +17,13 @@ trait HasBookingCourt
 
     private function getBookingCourt(int $lapangan_id, array $times = [], string $date = null, string $jenis_sewa = 'reguler')
     {
+        // find the session and lapangan, where the pemesanans status is paid
         $query = Pemesanan::query()->join('sesi_pemesanans', 'sesi_pemesanans.pemesanan_id', '=', 'pemesanans.id')
                                    ->join('sesis', 'sesis.id', '=', 'sesi_pemesanans.sesi_id')
-                                   ->whereDate('pemesanans.tanggal_sewa', $date)->where('sesis.lapangan_id', $lapangan_id)
-                                   ->whereIn('status', [Pemesanan::STATUS_PAID]);
+                                   ->where('member_id', auth('member')->id())
+                                   ->whereDate('pemesanans.tanggal_sewa', $date)
+                                   ->where('sesis.lapangan_id', $lapangan_id)
+                                   ->whereIn('pemesanans.status', [Pemesanan::STATUS_PAID]);
 
         if ($jenis_sewa === 'event') {
             return $query->get();

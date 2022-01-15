@@ -43,31 +43,65 @@
                         @endphp
                         @foreach($pemesanans as $pemesanan)
                             @foreach($pemesanan->sesiPemesanan as $sesiPemesanan)
-                                <tr class="gradeX">
-                                    <td>{{ ++$no }}</td>
-                                    <td>{{ $sesiPemesanan->sesi->lapangan->nama_lapangan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
-                                    <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_mulai)->format('H:i') : '-' }}</td>
-                                    <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_selesai)->format('H:i') : '-' }}</td>
-                                    <td>
-                                        @if(now()->toDateString() == $pemesanan->tanggal_sewa)
-                                            @if(now()->toTimeString() > $sesiPemesanan->sesi->jam_mulai && now()->toTimeString() < $sesiPemesanan->sesi->jam_selesai)
-                                                Sedang berlangsung
-                                            @elseif(now()->toTimeString() < $sesiPemesanan->sesi->jam_mulai)
-                                                Akan berlangsung
-                                            @elseif(now()->toTimeString() > $sesiPemesanan->sesi->jam_selesai)
+                                @if(!request()->filled('filter'))
+                                    <tr class="gradeX">
+                                        <td>{{ ++$no }}</td>
+                                        <td>{{ $sesiPemesanan->sesi->lapangan->nama_lapangan }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                        <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_mulai)->format('H:i') : '-' }}</td>
+                                        <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_selesai)->format('H:i') : '-' }}</td>
+                                        <td>
+                                            @if(now()->toDateString() == $pemesanan->tanggal_sewa)
+                                                @if(now()->toTimeString() > $sesiPemesanan->sesi->jam_mulai && now()->toTimeString() < $sesiPemesanan->sesi->jam_selesai)
+                                                    Sedang berlangsung
+                                                @elseif(now()->toTimeString() < $sesiPemesanan->sesi->jam_mulai)
+                                                    Akan berlangsung
+                                                @elseif(now()->toTimeString() > $sesiPemesanan->sesi->jam_selesai)
+                                                    Sudah selesai
+                                                @endif
+                                            @elseif(now()->toDateString() > $pemesanan->tanggal_sewa)
                                                 Sudah selesai
+                                            @elseif(now()->toDateString() < $pemesanan->tanggal_sewa)
+                                                Akan berlangsung
                                             @endif
-                                        @elseif(now()->toDateString() > $pemesanan->tanggal_sewa)
-                                            Sudah selesai
-                                        @elseif(now()->toDateString() < $pemesanan->tanggal_sewa)
-                                            Akan berlangsung
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('karyawan.jadwals.show', ['pemesanan' => $pemesanan->id, 'lapangan' => $sesiPemesanan->sesi->lapangan->id, 'sesi' => $sesiPemesanan->sesi->id]) }}" class="btn btn-warning btn-sm">Detail</a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('karyawan.jadwals.show', ['pemesanan' => $pemesanan->id, 'lapangan' => $sesiPemesanan->sesi->lapangan->id, 'sesi' => $sesiPemesanan->sesi->id]) }}" class="btn btn-warning btn-sm">Detail</a>
+                                        </td>
+                                    </tr>
+                                @elseif(request()->query('filter') == 'akan-berlangsung')
+                                    @if((now()->toDateString() == $pemesanan->tanggal_sewa && now()->toTimeString() < $sesiPemesanan->sesi->jam_mulai) || now()->toDateString() < $pemesanan->tanggal_sewa)
+                                        <tr class="gradeX">
+                                            <td>{{ ++$no }}</td>
+                                            <td>{{ $sesiPemesanan->sesi->lapangan->nama_lapangan }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                            <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_mulai)->format('H:i') : '-' }}</td>
+                                            <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_selesai)->format('H:i') : '-' }}</td>
+                                            <td>
+                                                Akan berlangsung
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('karyawan.jadwals.show', ['pemesanan' => $pemesanan->id, 'lapangan' => $sesiPemesanan->sesi->lapangan->id, 'sesi' => $sesiPemesanan->sesi->id]) }}" class="btn btn-warning btn-sm">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @elseif(request()->query('filter') == 'selesai')
+                                    @if((now()->toDateString() == $pemesanan->tanggal_sewa && now()->toTimeString() > $sesiPemesanan->sesi->jam_selesai) || now()->toDateString() > $pemesanan->tanggal_sewa)
+                                        <tr class="gradeX">
+                                            <td>{{ ++$no }}</td>
+                                            <td>{{ $sesiPemesanan->sesi->lapangan->nama_lapangan }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($pemesanan->tanggal_sewa)->format('d F Y') }}</td>
+                                            <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_mulai)->format('H:i') : '-' }}</td>
+                                            <td>{{ $pemesanan->jenis_sewa === 'reguler' ? \Carbon\Carbon::parse($sesiPemesanan->sesi->jam_selesai)->format('H:i') : '-' }}</td>
+                                            <td>
+                                                Selesai
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('karyawan.jadwals.show', ['pemesanan' => $pemesanan->id, 'lapangan' => $sesiPemesanan->sesi->lapangan->id, 'sesi' => $sesiPemesanan->sesi->id]) }}" class="btn btn-warning btn-sm">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endif
                             @endforeach
                         @endforeach
                         </tbody>
