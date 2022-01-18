@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Masthead-->
-    <header class="masthead" style="background-image: url('{{ asset('img/member/header-bg.jpg') }}')">
+    <header class="masthead" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ asset('img/member/header-bg.jpg') }}')">
         <div class="container">
             <div class="masthead-heading text-uppercase">Selamat datang di Sipela!</div>
             @unless(auth('member')->check())
