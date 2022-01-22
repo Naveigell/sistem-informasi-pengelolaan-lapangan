@@ -9,6 +9,9 @@ class Member extends Authenticatable
 {
     use HasFactory;
 
+    public const ACTIVE   = 'aktif';
+    public const INACTIVE = 'tidak aktif';
+
     protected $fillable = [
         "nama_member", "alamat_member", "hp", "email", "password", "status",
     ];

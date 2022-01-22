@@ -53,16 +53,18 @@
         <form action="{{ route('member.pemesanans.confirm', $lapangan) }}" method="post">
             @csrf
             <div class="container">
-                <div class="">
-                    <h2 class="section-heading text-uppercase text-center">Deskripsi Lapangan</h2>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-12 text-left">
-                                <span style="">{!! $lapangan->deskripsi_lapangan !!}</span>
+                @if (auth('member')->check())
+                    <div class="">
+                        <h2 class="section-heading text-uppercase text-center">Deskripsi Lapangan</h2>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 text-left">
+                                    <span style="">{!! $lapangan->deskripsi_lapangan !!}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <div class="text-center mt-5">
                     <h2 class="section-heading text-uppercase">Jadwal</h2>
                     <div class="form-group">
@@ -133,14 +135,14 @@
                                             @endphp
 
                                             @if(!$booked && $isValidTime)
-                                                <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
+                                                <input class="checkboxes" @if (!auth('member')->check()) disabled @endif  name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
                                                 <label for="time-{{ $i }}">Pilih</label>
                                             @elseif((($lessThanCurrentTime || $inTheMiddleOfTime) && request()->query('date') == date('Y-m-d')))
                                                 <label>Waktu sudah lewat!</label>
                                             @elseif($booked)
                                                 <label>Penuh!</label>
                                             @else
-                                                <input class="checkboxes" name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
+                                                <input class="checkboxes" @if (!auth('member')->check()) disabled @endif name="waktu[]" value="{{ $i }}" type="checkbox" style="width: 18px; height: 18px;" id="time-{{ $i }}">
                                                 <label for="time-{{ $i }}">Pilih</label>
                                             @endif
                                         </div>
@@ -152,40 +154,53 @@
                                 Telah dibooking untuk event
                             </div>
                         @endif
+
+{{--                        @unless (auth('member')->check())--}}
+{{--                            <div class="row">--}}
+{{--                                <div class="col-12">--}}
+{{--                                    <input type="checkbox" disabled id="cant-booking">--}}
+{{--                                    <label for="cant-booking">Belum</label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @endunless--}}
                     </div>
                     <div class="col-md-1"></div>
                 </div>
-                @unless($isEvent)
-                    <div class="row mt-5">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-12 text-left">
-                            <h4 class="my-12">Harga</h4>
-                            <div class="mt-4">
-                                <div class="form-group d-inline-block col-12">
-                                    <input name="" type="text" disabled id="harga" class="form-control" checked>
+                @if (auth('member')->check())
+                    @unless($isEvent)
+                        <div class="row mt-5">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-12 text-left">
+                                <h4 class="my-12">Harga</h4>
+                                <div class="mt-4">
+                                    <div class="form-group d-inline-block col-12">
+                                        <input name="" type="text" disabled id="harga" class="form-control" checked>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-1"></div>
                         </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-12 text-left">
-                            <h4 class="my-12">Total Bayar</h4>
-                            <div class="mt-4">
-                                <div class="form-group d-inline-block col-12">
-                                    <input name="" type="text" disabled id="total" class="form-control">
+                        <div class="row mt-5">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-12 text-left">
+                                <h4 class="my-12">Total Bayar</h4>
+                                <div class="mt-4">
+                                    <div class="form-group d-inline-block col-12">
+                                        <input name="" type="text" disabled id="total" class="form-control">
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-1"></div>
                         </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                    <div class="mt-4">
-                        <button class="btn btn-info btn-lg">
-                            Booking
-                        </button>
-                    </div>
-                @endunless
+                        @if (auth('member')->check())
+                            <div class="mt-4">
+                                <button class="btn btn-info btn-lg">
+                                    Booking
+                                </button>
+                            </div>
+                        @endif
+                    @endunless
+                @endif
             </div>
             <input type="text" name="id" value="{{ $lapangan->id }}" hidden>
             <input type="checkbox" checked hidden name="accept">

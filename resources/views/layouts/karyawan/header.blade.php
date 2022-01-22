@@ -15,29 +15,29 @@
         <ul class="nav top-menu">
             <!-- inbox dropdown end -->
             <!-- notification dropdown start-->
-{{--            @if(auth('pengguna')->user()->jabatan === 'staff')--}}
-{{--                <li id="header_notification_bar" class="dropdown">--}}
-{{--                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">--}}
-{{--                        <i class="fa fa-bell-o"></i>--}}
-{{--                        @if($notifications['total'] > 0)--}}
-{{--                            <span class="badge bg-warning">{{ $notifications['total'] }}</span>--}}
-{{--                        @endif--}}
-{{--                    </a>--}}
-{{--                    <ul class="dropdown-menu extended notification">--}}
-{{--                        <div class="notify-arrow notify-arrow-yellow"></div>--}}
-{{--                        @if($notifications['total'] > 0)--}}
-{{--                            <li>--}}
-{{--                                <p class="yellow">You have {{ $notifications['total'] }} new notifications</p>--}}
-{{--                            </li>--}}
-{{--                        @endif--}}
-{{--                        @foreach($notifications['data'] as $notification)--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ route('admin.notification.index', $notification) }}">--}}
-{{--                                    <span class="label label-success"><i class="fa fa-plus"></i></span> &nbsp;--}}
-{{--                                    <b>{{ $notification->data["no_transaksi"] }}</b> Booking baru--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        @endforeach--}}
+            @if(auth('karyawan')->user()->jabatan === 'staff')
+                <li id="header_notification_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <i class="fa fa-bell-o"></i>
+                        @if(count($memberNotifications) > 0)
+                            <span class="badge bg-warning">{{ count($memberNotifications) }}</span>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu extended notification" style="width: 500px;">
+                        <div class="notify-arrow notify-arrow-yellow"></div>
+                        @if(count($memberNotifications) > 0)
+                            <li>
+                                <p class="yellow">Ada {{ count($memberNotifications) }} member yang sudah tidak memesan selama 2 bulan</p>
+                            </li>
+                        @endif
+                        @foreach($memberNotifications as $notification)
+                            <li>
+                                <a href="{{ route('karyawan.members.edit', $notification->member->id) }}">
+                                    <span class="label label-success"><i class="fa fa-plus"></i></span> &nbsp;
+                                    Menuju <b>{{ $notification->member->nama_member }}</b>
+                                </a>
+                            </li>
+                        @endforeach
 {{--                        @unless($notifications['total'] > 0)--}}
 {{--                            <li>--}}
 {{--                                <a>--}}
@@ -49,9 +49,9 @@
 {{--                                <a href="index.html#">See all notifications</a>--}}
 {{--                            </li>--}}
 {{--                        @endunless--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
-{{--            @endif--}}
+                    </ul>
+                </li>
+            @endif
             <!-- notification dropdown end -->
         </ul>
         <!--  notification end -->

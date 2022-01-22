@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lapangan;
+use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +15,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        $isMemberActive = true;
+//
+//        if (auth('member')->check()) {
+//            // get the latest $pemesanans from 2 months ago
+//            $activePemesanans = Pemesanan::query()->where('member_id', auth('member')->id())
+//                                                ->whereIn('status', [Pemesanan::STATUS_PAID])
+//                                                ->whereDate('tanggal_sewa', '>', now()->subMonths(2)->toDateString());
+//
+//            $isMemberActive = $activePemesanans->count() > 0;
+//        }
+
         $lapangans = Lapangan::all();
 
         return view('home', compact('lapangans'));

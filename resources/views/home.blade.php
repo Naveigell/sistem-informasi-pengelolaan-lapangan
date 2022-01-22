@@ -1,10 +1,15 @@
 @extends('layouts.member.member')
 
 @section('content')
+{{--    @if (!$isMemberActive)--}}
+{{--        <script>--}}
+{{--            alert('Kamu belum pernah memesan lapangan dari 2 bulan yang lalu, mohon untuk segera memesan lapangan');--}}
+{{--        </script>--}}
+{{--    @endif--}}
     <!-- Masthead-->
     <header class="masthead" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ asset('img/member/header-bg.jpg') }}')">
         <div class="container">
-            <div class="masthead-heading text-uppercase">Selamat datang di Sipela!</div>
+            <span class="masthead-heading text-uppercase">Selamat datang di Sipela!</span>
             @unless(auth('member')->check())
                 <div class="masthead-subheading">
                     Silakan login untuk memesan lapangan
@@ -23,40 +28,59 @@
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">List Lapangan</h2>
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4"><input type="date" class="form-control"></div>
+                    <div class="col-4"></div>
+                </div>
+                <br><br>
             </div>
             <div class="row">
-                @foreach($lapangans as $lapangan)
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 1-->
-                        <div class="portfolio-item">
-                            @if(auth('member')->check())
+{{--                @if (auth('member')->check())--}}
+                    @foreach($lapangans as $lapangan)
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <!-- Portfolio item 1-->
+                            <div class="portfolio-item">
                                 <a href="{{ route('member.lapangans.show', $lapangan) }}" class="portfolio-link">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                     </div>
                                     <img class="img-fluid" src="{{ $lapangan->foto_url }}" alt="..." style="max-height: 300px; min-height: 300px; object-fit: cover;"/>
                                 </a>
-                            @else
-                                <div class="portfolio-link">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                <div class="portfolio-caption">
+                                    <h6 class="text text-danger" style="text-align: left;">{{ $lapangan->nama_lapangan }}</h6>
+                                    <div class="portfolio-caption-heading" style="text-align: left;">Harga</div>
+                                    <div class="portfolio-caption-subheading text-muted" style="text-align: left;">
+                                        Reguler : {{ number_format($lapangan->harga_reguler, 0, ',' , '.') }}
                                     </div>
-                                    <img class="img-fluid" src="{{ $lapangan->foto_url }}" alt="..." style="max-height: 300px; min-height: 300px; object-fit: cover;"/>
-                                </div>
-                            @endif
-                            <div class="portfolio-caption">
-                                <h6 class="text text-danger" style="text-align: left;">{{ $lapangan->nama_lapangan }}</h6>
-                                <div class="portfolio-caption-heading" style="text-align: left;">Harga</div>
-                                <div class="portfolio-caption-subheading text-muted" style="text-align: left;">
-                                    Reguler : {{ number_format($lapangan->harga_reguler, 0, ',' , '.') }}
-                                </div>
-                                <div class="portfolio-caption-subheading text-muted" style="text-align: left;">
-                                    Turnamen : {{ number_format($lapangan->harga_turnamen, 0, ',' , '.') }}
+                                    <div class="portfolio-caption-subheading text-muted" style="text-align: left;">
+                                        Turnamen : {{ number_format($lapangan->harga_turnamen, 0, ',' , '.') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+{{--                @else--}}
+{{--                    @foreach($lapangans as $lapangan)--}}
+{{--                        <div class="col-lg-4 col-sm-6 mb-4">--}}
+{{--                            <!-- Portfolio item 1-->--}}
+{{--                            <div class="portfolio-item">--}}
+{{--                                <a href="{{ route('member.lapangans.show', $lapangan) }}" class="portfolio-link">--}}
+{{--                                    <div class="portfolio-hover">--}}
+{{--                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>--}}
+{{--                                    </div>--}}
+{{--                                    <img class="img-fluid" src="{{ $lapangan->foto_url }}" alt="..." style="max-height: 300px; min-height: 300px; object-fit: cover;"/>--}}
+{{--                                </a>--}}
+{{--                                <div class="portfolio-caption">--}}
+{{--                                    <h6 class="text text-danger" style="text-align: left;">{{ $lapangan->nama_lapangan }}</h6>--}}
+{{--                                    <div>--}}
+
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
             </div>
         </div>
     </section>
